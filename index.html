@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compact VPN - Быстрый и безопасный интернет</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Header */
+        header { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.9); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 24px; font-weight: bold; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--primary); }
+
+        /* Hero */
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* Calculator & Pricing */
+        .pricing-section { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .devices-selector { text-align: center; margin-bottom: 30px; background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .devices-selector select { padding: 10px; font-size: 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); outline: none; margin-left: 10px; }
+        
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 30px 20px; text-align: center; transition: transform 0.2s; position: relative; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .discount-badge { position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .price { font-size: 2rem; font-weight: bold; margin: 15px 0; color: var(--primary); }
+        .price span { font-size: 1rem; color: var(--text-muted); }
+        .btn { display: inline-block; width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background 0.2s; font-weight: bold; }
+        .btn:hover { background: var(--primary-hover); text-decoration: none; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: 60px; color: var(--text-muted); font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 20px; }
+        .footer-col h4 { color: var(--text); margin-bottom: 15px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li a { color: var(--text-muted); cursor: pointer; }
+        .footer-col ul li a:hover { color: var(--primary); }
+        .legal-info { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.8rem; }
+
+        /* Modals */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 30px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+        .close-modal:hover { color: var(--text); }
+        .modal-content h2 { margin-bottom: 15px; color: var(--primary); }
+        .modal-content p, .modal-content li { margin-bottom: 10px; color: var(--text-muted); font-size: 0.95rem; }
+        
+        /* Checkout Form */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--text); }
+        .form-group input[type="text"] { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; text-align: left; }
+        .checkbox-group input { margin-top: 4px; }
+        .checkbox-group label { font-size: 0.85rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🚀 Compact<span>VPN</span></div>
+        <nav>
+            <a href="#pricing">Тарифы</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Свободный интернет без границ</h1>
+        <p>Высокая скорость, отсутствие логов и стабильный доступ к любым ресурсам. Подключите Compact VPN и наслаждайтесь безопасностью.</p>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="devices-selector">
+            <label for="deviceCount">Количество устройств:</label>
+            <select id="deviceCount" onchange="updatePrices()">
+                <option value="1">1 устройство</option>
+                <option value="2">2 устройства</option>
+                <option value="3">3 устройства</option>
+                <option value="4">4 устройства</option>
+            </select>
+        </div>
+
+        <div class="cards">
+            <!-- Cards will be populated by JS -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>О сервисе</h4>
+                <p>Compact VPN — это программное обеспечение для обеспечения конфиденциальности и безопасности в сети Интернет.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Документы</h4>
+                <ul>
+                    <li><a onclick="openModal('offerModal')">Договор оферты</a></li>
+                    <li><a onclick="openModal('privacyModal')">Политика конфиденциальности</a></li>
+                    <li><a onclick="openModal('refundModal')">Условия возврата</a></li>
+                    <li><a onclick="openModal('deliveryModal')">Доставка и оплата</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li>Служба поддержки: <a href="https://t.me/katsyka" target="_blank">@katsyka</a></li>
+                    <li>Email: support@compactvpn.ru</li>
+                    <li>Телефон: +7 (999) 000-00-00</li>
+                    <li><a onclick="openModal('contactsModal')">Полные реквизиты</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="legal-info">
+            <!-- ВНИМАНИЕ: Для модерации здесь должны быть реквизиты, даже если это самозанятый. Замени на свои реальные/подходящие. -->
+            <p>ИП Иванов Иван Иванович | ИНН: 123456789012 | ОГРНИП: 123456789012345</p>
+            <p>Фактический адрес: г. Москва, ул. Примерная, д. 1, оф. 1</p>
+            <p>&copy; 2024 Compact VPN. Все права защищены. Товарный знак используется с согласия правообладателя.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            <h2>Оформление подписки</h2>
+            <p id="paymentDescription">VPN на 1 мес. (1 устройство)</p>
+            <div class="price" id="paymentPrice">150 ₽</div>
+            
+            <div class="form-group">
+                <label>Ваш Telegram (для привязки ключа):</label>
+                <input type="text" id="tgInput" placeholder="@username или ID" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreeOffer" required>
+                <label>Я принимаю условия <a onclick="openModal('offerModal')">Договора оферты</a> и подтверждаю, что услуга будет оказана в электронном виде.</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreePrivacy" required>
+                <label>Я согласен на <a onclick="openModal('privacyModal')">обработку персональных данных</a>.</label>
+            </div>
+
+            <button class="btn" onclick="processPayment()">Перейти к оплате (Lava)</button>
+        </div>
+    </div>
+
+    <!-- Legal Modals -->
+    <!-- ДОГОВОР ОФЕРТЫ -->
+    <div id="offerModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('offerModal')">&times;</span>
+            <h2>Публичная оферта</h2>
+            <p>Настоящий договор является публичной офертой Кацыка В. Л. (далее Исполнитель) для любого физического или юридического лица (далее Заказчик).</p>
+            <p><strong>1. Предмет договора</strong><br>Исполнитель предоставляет Заказчику неисключительное право доступа к программно-аппаратному комплексу Compact VPN.</p>
+            <p><strong>2. Порядок оказания услуг</strong><br>Услуга считается оказанной в момент предоставления Заказчику цифрового ключа (ссылки) доступа к серверам Исполнителя.</p>
+            <p><strong>3. Интеллектуальная собственность</strong><br>Программное обеспечение предоставляется на условиях "как есть". Исполнитель имеет все необходимые лицензии и права (или договоры с правообладателями) на реализацию доступа к данному ПО.</p>
+            <p><strong>4. Запрещенное использование</strong><br>Заказчику запрещается использовать сервис для осуществления любой деятельности, нарушающей законодательство РФ (в т.ч. спам, хакерские атаки, распространение запрещенных материалов).</p>
+        </div>
+    </div>
+
+    <!-- ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ -->
+    <div id="privacyModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
+            <h2>Политика обработки персональных данных</h2>
+            <p>Настоящая политика составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных».</p>
+            <p><strong>1. Сбор данных</strong><br>Мы собираем минимально необходимый объем данных: ID в Telegram или Email, необходимые исключительно для предоставления услуги и обратной связи.</p>
+            <p><strong>2. Использование данных</strong><br>Данные используются для идентификации клиента в системе, технической поддержки и отправки реквизитов доступа.</p>
+            <p><strong>3. Защита данных</strong><br>Мы не храним логи активности пользователей в сети интернет. Платежные данные обрабатываются исключительно на стороне сертифицированных платежных шлюзов (Lava).</p>
+            <p><strong>4. Передача третьим лицам</strong><br>Данные не передаются третьим лицам, за исключением случаев, предусмотренных законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- УСЛОВИЯ ВОЗВРАТА -->
+    <div id="refundModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('refundModal')">&times;</span>
+            <h2>Условия возврата и отмены</h2>
+            <p><strong>1. Отмена заказа</strong><br>Заказчик вправе отказаться от услуги до момента получения электронного ключа доступа.</p>
+            <p><strong>2. Возврат средств</strong><br>Возврат средств за цифровые товары надлежащего качества не производится. В случае неработоспособности сервиса по вине Исполнителя, Заказчик имеет право запросить возврат средств в течение 14 дней с момента оплаты пропорционально неиспользованному времени.</p>
+            <p><strong>3. Процедура возврата</strong><br>Для оформления возврата необходимо написать в службу поддержки (planet.vasiliy@gmail.com или в Telegram) с указанием данных платежа. Возврат осуществляется на ту же банковскую карту или кошелек, с которого производилась оплата, в течение 3-14 рабочих дней.</p>
+        </div>
+    </div>
+
+    <!-- ДОСТАВКА И ОПЛАТА -->
+    <div id="deliveryModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('deliveryModal')">&times;</span>
+            <h2>Условия доставки и оплаты</h2>
+            <p><strong>1. Стоимость и способы</strong><br>Доставка осуществляется <strong>бесплатно</strong>. Мы принимаем оплату банковскими картами (РФ и СНГ) и электронными кошельками через платежный шлюз Lava.</p>
+            <p><strong>2. Сроки и регионы</strong><br>Услуга предоставляется глобально (по всему миру). Доставка цифрового товара (настроек VPN) осуществляется <strong>моментально (в течение 1-5 минут)</strong> после успешного прохождения платежа.</p>
+            <p><strong>3. Формат доставки</strong><br>Ключ доступа и инструкция по подключению автоматически отправляются на указанный при оформлении заказа Telegram-аккаунт или Email, а также отображаются на странице после оплаты.</p>
+        </div>
+    </div>
+
+    <!-- КОНТАКТЫ -->
+    <div id="contactsModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('contactsModal')">&times;</span>
+            <h2>Контакты и реквизиты</h2>
+            <p><strong>Служба поддержки:</strong> @katsyka (Telegram)</p>
+            <p><strong>Email:</strong> planet.vasiliy@gmail.com</p>
+            <p><strong>Телефон:</strong> +7 (921) 742 74 49</p>
+            <hr style="margin: 15px 0; border-color: var(--border);">
+            <p><strong>Юридическая информация:</strong></p>
+            <p>Индивидуальный предприниматель Кацыка Василий Леонидович</p>
+        </div>
+    </div>
+
+    <script>
+        // Логика расчета цен, аналогичная Python-боту
+        const plans =[
+            { months: 1, discount: 0, label: "1 месяц" },
+            { months: 3, discount: 0.10, label: "3 месяца" },
+            { months: 6, discount: 0.15, label: "Полгода" },
+            { months: 12, discount: 0.20, label: "1 год" }
+        ];
+
+        let currentSelection = { devices: 1, months: 1, price: 150 };
+
+        function calculatePrice(devices, months, discount) {
+            let basePrice = 150 + ((devices - 1) * 50);
+            let total = basePrice * months * (1 - discount);
+            return Math.ceil(total); // В рублях, без деления на звезды
+        }
+
+        function updatePrices() {
+            const devices = parseInt(document.getElementById('deviceCount').value);
+            const cardsContainer = document.querySelector('.cards');
+            cardsContainer.innerHTML = '';
+
+            plans.forEach(plan => {
+                const price = calculatePrice(devices, plan.months, plan.discount);
+                const discountBadge = plan.discount > 0 ? `<div class="discount-badge">-${plan.discount * 100}%</div>` : '';
+                
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    ${discountBadge}
+                    <h3>${plan.label}</h3>
+                    <div class="price">${price} ₽</div>
+                    <button class="btn" onclick="openPayment(${devices}, ${plan.months}, ${price}, '${plan.label}')">Купить</button>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // Модалки
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Закрытие по клику вне окна
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        // Оформление заказа
+        function openPayment(devices, months, price, label) {
+            currentSelection = { devices, months, price };
+            document.getElementById('paymentDescription').innerText = `VPN на ${label} (${devices} устр.)`;
+            document.getElementById('paymentPrice').innerText = `${price} ₽`;
+            
+            // Сбрасываем чекбоксы
+            document.getElementById('agreeOffer').checked = false;
+            document.getElementById('agreePrivacy').checked = false;
+            
+            openModal('paymentModal');
+        }
+
+        // Интеграция с бэкендом (Cloudflare Workers / Lava API)
+        async function processPayment() {
+            const tgInput = document.getElementById('tgInput').value.trim();
+            const offer = document.getElementById('agreeOffer').checked;
+            const privacy = document.getElementById('agreePrivacy').checked;
+
+            if (!tgInput) {
+                alert("Пожалуйста, введите ваш Telegram ID или username");
+                return;
+            }
+            if (!offer || !privacy) {
+                alert("Необходимо принять условия Оферты и Политики конфиденциальности");
+                return;
+            }
+
+            const btn = document.querySelector('#paymentModal .btn');
+            btn.innerText = "Создание платежа...";
+            btn.disabled = true;
+
+            try {
+                /*
+                // ==========================================
+                // ИНТЕГРАЦИЯ С CLOUDFLARE WORKERS И LAVA:
+                // ==========================================
+                // Раскомментируй этот код, когда создашь Worker:
+                
+                const response = await fetch('https://твой-worker.твоя-зона.workers.dev/api/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        devices: currentSelection.devices,
+                        months: currentSelection.months,
+                        amount: currentSelection.price,
+                        contact: tgInput
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.payment_url) {
+                    window.location.href = data.payment_url; // Переадресация на шлюз Lava
+                } else {
+                    alert("Ошибка создания платежа. Попробуйте позже.");
+                }
+                */
+
+                // Временная заглушка, пока нет бэкенда:
+                setTimeout(() => {
+                    alert(`Симуляция запроса к Lava.\n\nСумма: ${currentSelection.price} руб.\nУстройства: ${currentSelection.devices}\nМесяцы: ${currentSelection.months}\nКонтакт: ${tgInput}\n\nЗдесь будет редирект на Lava.`);
+                    btn.innerText = "Перейти к оплате (Lava)";
+                    btn.disabled = false;
+                    closeModal('paymentModal');
+                }, 1000);
+
+            } catch (error) {
+                console.error(error);
+                alert("Произошла ошибка связи с сервером.");
+                btn.innerText = "Перейти к оплате (Lava)";
+                btn.disabled = false;
+            }
+        }
+
+        // Инициализация при загрузке
+        window.onload = updatePrices;
+    </script>
+</body>
+</html>
