@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="enot" content="2e0e08ce" />
     <title>Compact VPN - Быстрый и безопасный интернет</title>
     <style>
         :root {
@@ -156,7 +157,7 @@
                 <label>Я согласен на <a onclick="openModal('privacyModal')">обработку персональных данных</a>.</label>
             </div>
 
-            <button class="btn" onclick="processPayment()">Перейти к оплате (Lava)</button>
+            <button class="btn" onclick="processPayment()">Перейти к оплате</button>
         </div>
     </div>
 
@@ -182,7 +183,7 @@
             <p>Настоящая политика составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных».</p>
             <p><strong>1. Сбор данных</strong><br>Мы собираем минимально необходимый объем данных: ID в Telegram или Email, необходимые исключительно для предоставления услуги и обратной связи.</p>
             <p><strong>2. Использование данных</strong><br>Данные используются для идентификации клиента в системе, технической поддержки и отправки реквизитов доступа.</p>
-            <p><strong>3. Защита данных</strong><br>Мы не храним логи активности пользователей в сети интернет. Платежные данные обрабатываются исключительно на стороне сертифицированных платежных шлюзов (Lava).</p>
+            <p><strong>3. Защита данных</strong><br>Мы не храним логи активности пользователей в сети интернет. Платежные данные обрабатываются исключительно на стороне сертифицированных платежных шлюзов.</p>
             <p><strong>4. Передача третьим лицам</strong><br>Данные не передаются третьим лицам, за исключением случаев, предусмотренных законодательством РФ.</p>
         </div>
     </div>
@@ -203,7 +204,7 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('deliveryModal')">&times;</span>
             <h2>Условия доставки и оплаты</h2>
-            <p><strong>1. Стоимость и способы</strong><br>Доставка осуществляется <strong>бесплатно</strong>. Мы принимаем оплату банковскими картами (РФ и СНГ) и электронными кошельками через платежный шлюз Lava.</p>
+            <p><strong>1. Стоимость и способы</strong><br>Доставка осуществляется <strong>бесплатно</strong>. Мы принимаем оплату банковскими картами (РФ и СНГ) и электронными кошельками через платежный шлюз.</p>
             <p><strong>2. Сроки и регионы</strong><br>Услуга предоставляется глобально (по всему миру). Доставка цифрового товара (настроек VPN) осуществляется <strong>моментально (в течение 1-5 минут)</strong> после успешного прохождения платежа.</p>
             <p><strong>3. Формат доставки</strong><br>Ключ доступа и инструкция по подключению автоматически отправляются на указанный при оформлении заказа Telegram-аккаунт или Email, а также отображаются на странице после оплаты.</p>
         </div>
@@ -290,7 +291,6 @@
             openModal('paymentModal');
         }
 
-        // Интеграция с бэкендом (Cloudflare Workers / Lava API)
         async function processPayment() {
             const tgInput = document.getElementById('tgInput').value.trim();
             const offer = document.getElementById('agreeOffer').checked;
@@ -312,7 +312,7 @@
             try {
                 /*
                 // ==========================================
-                // ИНТЕГРАЦИЯ С CLOUDFLARE WORKERS И LAVA:
+                // ИНТЕГРАЦИЯ С CLOUDFLARE WORKERS:
                 // ==========================================
                 // Раскомментируй этот код, когда создашь Worker:
                 
@@ -329,7 +329,7 @@
                 
                 const data = await response.json();
                 if (data.payment_url) {
-                    window.location.href = data.payment_url; // Переадресация на шлюз Lava
+                    window.location.href = data.payment_url; // Переадресация на шлюз 
                 } else {
                     alert("Ошибка создания платежа. Попробуйте позже.");
                 }
@@ -337,8 +337,8 @@
 
                 // Временная заглушка, пока нет бэкенда:
                 setTimeout(() => {
-                    alert(`Симуляция запроса к Lava.\n\nСумма: ${currentSelection.price} руб.\nУстройства: ${currentSelection.devices}\nМесяцы: ${currentSelection.months}\nКонтакт: ${tgInput}\n\nЗдесь будет редирект на Lava.`);
-                    btn.innerText = "Перейти к оплате (Lava)";
+                    alert(`Симуляция запроса.\n\nСумма: ${currentSelection.price} руб.\nУстройства: ${currentSelection.devices}\nМесяцы: ${currentSelection.months}\nКонтакт: ${tgInput}\n\nЗдесь будет редирект.`);
+                    btn.innerText = "Перейти к оплате";
                     btn.disabled = false;
                     closeModal('paymentModal');
                 }, 1000);
@@ -346,7 +346,7 @@
             } catch (error) {
                 console.error(error);
                 alert("Произошла ошибка связи с сервером.");
-                btn.innerText = "Перейти к оплате (Lava)";
+                btn.innerText = "Перейти к оплате";
                 btn.disabled = false;
             }
         }
