@@ -5,31 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Compact VPN</title>
     
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png" sizes="192x192">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
+    <!-- Настройки Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { dark: '#050505', primary: '#3b82f6', accent: '#8b5cf6' },
-                    animation: { 'float': 'float 6s ease-in-out infinite', 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' },
-                    keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } } }
+                    colors: {
+                        dark: '#050505',
+                        primary: '#3b82f6',
+                        accent: '#8b5cf6'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
                 }
             }
         }
     </script>
 
     <style>
+        /* Базовые настройки */
         body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glass-active { background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(24px); border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-        .text-gradient { background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .calc-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
-        .calc-btn:active { transform: scale(0.97); }
-        .tg-btn { background: linear-gradient(135deg, #2563eb, #7c3aed); transition: all 0.3s ease; }
-        .tg-btn:hover { box-shadow: 0 0 30px rgba(124, 58, 237, 0.5); transform: translateY(-2px); }
         
+        /* Идеальное матовое стекло (Glassmorphism) */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Светящееся стекло для активных элементов */
+        .glass-active {
+            background: rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Текст с градиентом */
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Кнопки в калькуляторе */
+        .calc-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .calc-btn:active { transform: scale(0.97); }
+        
+        /* Градиентная кнопка Telegram */
+        .tg-btn {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            transition: all 0.3s ease;
+        }
+        .tg-btn:hover {
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+        }
+
         /* Стили для модалки профиля */
         #profile-modal { transition: opacity 0.3s ease; }
         #profile-modal.hidden { opacity: 0; pointer-events: none; display: flex !important; z-index: -1; }
@@ -37,27 +90,35 @@
 </head>
 <body class="antialiased selection:bg-primary selection:text-white">
 
+    <!-- Фоновые неоновые блики -->
     <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/40 sm:bg-blue-600/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
     <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/40 sm:bg-purple-600/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
 
-    <!-- Header -->
+    <!-- Плавающий Header -->
     <div class="fixed top-4 left-0 right-0 z-50 px-3 sm:px-4 flex justify-center">
         <nav class="glass w-full max-w-4xl rounded-full px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between shadow-2xl">
             <div class="flex items-center gap-1 sm:gap-2">
-                <lottie-player src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
+                <lottie-player 
+                    src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
+                    background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay>
+                </lottie-player>
                 <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
             </div>
             
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a id="nav-buy-btn" href="#calculator" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full transition text-xs sm:text-sm font-semibold backdrop-blur-md whitespace-nowrap">
+                    Тарифы
+                </a>
+                
                 <!-- Контейнер для кнопки логина / профиля -->
-                <div id="auth-container">
-                    <!-- ЗАМЕНИ data-telegram-login НА ИМЯ ТВОЕГО БОТА БЕЗ @ -->
+                <div id="auth-container" class="h-[28px] sm:h-[36px] flex items-center overflow-hidden rounded-full transition-all">
+                    <!-- Замени 'compact_vpn_bot' на точный юзернейм своего бота без '@' -->
                     <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="compact_vpn_bot" data-size="medium" data-radius="20" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
                 </div>
                 
-                <button id="profile-btn" onclick="toggleProfile()" class="hidden bg-white/10 hover:bg-white/20 border border-white/5 text-white px-4 py-1.5 rounded-full transition text-sm font-semibold flex items-center gap-2">
-                    <img id="user-avatar" src="" class="w-6 h-6 rounded-full" alt="Avatar">
-                    <span id="user-name">Кабинет</span>
+                <button id="profile-btn" onclick="toggleProfile()" class="hidden bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 py-1.5 sm:py-2 rounded-full transition text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <img id="user-avatar" src="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full" alt="Avatar">
+                    <span id="user-name" class="hidden sm:inline">Кабинет</span>
                 </button>
             </div>
         </nav>
@@ -119,47 +180,102 @@
         </div>
     </div>
 
-    <!-- Главный экран и Преимущества (Оставлены без изменений для краткости) -->
-    <section class="relative pt-32 sm:pt-40 pb-16 px-4 max-w-5xl mx-auto text-center z-10">
-        <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6 leading-tight">Твой интернет, <br /><span class="text-gradient">без границ.</span></h1>
-        <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed px-4">Обходи блокировки, смотри YouTube 4K и листай Instagram без замедлений.</p>
+    <!-- Главный экран -->
+    <section class="relative pt-32 sm:pt-48 pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs sm:text-sm text-blue-200 mb-8 animate-float">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse border border-green-200"></span>
+            Серверы работают стабильно
+        </div>
+        
+        <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+            Твой интернет, <br />
+            <span class="text-gradient">без границ.</span>
+        </h1>
+        
+        <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed px-4">
+            Обходи блокировки, смотри YouTube 4K и листай Instagram без замедлений. Защищенно, быстро и в один клик.
+        </p>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="py-10 relative z-10">
+        <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/20 flex items-center justify-center text-2xl mb-5">⚡</div>
+                <h3 class="text-xl font-bold mb-2">Максимальная скорость</h3>
+                <p class="text-gray-400 text-sm sm:text-base">Никаких урезаний канала. Идеально для просмотра видео, стримов и тяжелых файлов.</p>
+            </div>
+            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent border border-purple-500/20 flex items-center justify-center text-2xl mb-5">📱</div>
+                <h3 class="text-xl font-bold mb-2">На любых устройствах</h3>
+                <p class="text-gray-400 text-sm sm:text-base">iOS, Android, Windows, macOS. Одна подписка — доступ для всех твоих гаджетов.</p>
+            </div>
+            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 flex items-center justify-center text-2xl mb-5">🛡️</div>
+                <h3 class="text-xl font-bold mb-2">Обход блокировок</h3>
+                <p class="text-gray-400 text-sm sm:text-base">Используем маскировку трафика (VLESS/Reality). Провайдер видит лишь обычный серфинг.</p>
+            </div>
+        </div>
     </section>
 
     <!-- Калькулятор Тарифов -->
-    <section id="calculator" class="py-10 relative z-10 max-w-4xl mx-auto px-4">
+    <section id="calculator" class="py-20 relative z-10 max-w-4xl mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-3">Настрой подписку</h2>
+            <p class="text-gray-400 text-sm sm:text-base">Выбери параметры, счет на оплату придет в Telegram.</p>
+        </div>
+
         <div class="glass rounded-[2rem] p-5 sm:p-10 shadow-2xl relative">
-            
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <!-- Устройства -->
             <div class="mb-8 relative z-10">
                 <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">Сколько устройств подключим?</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <button onclick="setDev(1)" class="calc-btn dev-btn glass text-white py-3 rounded-2xl text-sm font-semibold" data-val="1">1 устройство</button>
-                    <button onclick="setDev(2)" class="calc-btn dev-btn glass text-white py-3 rounded-2xl text-sm font-semibold" data-val="2">2 устройства</button>
-                    <button onclick="setDev(3)" class="calc-btn dev-btn glass text-white py-3 rounded-2xl text-sm font-semibold" data-val="3">3 устройства</button>
-                    <button onclick="setDev(0)" class="calc-btn dev-btn glass text-white py-3 rounded-2xl text-sm font-semibold" data-val="0">Безлимит ♾️</button>
+                    <button onclick="setDev(1)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="1">1 устройство</button>
+                    <button onclick="setDev(2)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="2">2 устройства</button>
+                    <button onclick="setDev(3)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="3">3 устройства</button>
+                    <button onclick="setDev(0)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold flex items-center justify-center gap-1" data-val="0">
+                        Безлимит <span class="text-lg">♾️</span>
+                    </button>
                 </div>
             </div>
 
+            <!-- Месяцы -->
             <div class="mb-10 relative z-10">
                 <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">На какой срок?</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-6 sm:gap-3 mt-4">
-                    <button onclick="setMo(1)" class="calc-btn mo-btn glass text-white py-3 rounded-2xl text-sm font-semibold" data-val="1">1 месяц</button>
-                    <button onclick="setMo(3)" class="calc-btn mo-btn glass text-white py-3 rounded-2xl text-sm font-semibold relative" data-val="3">3 месяца <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-full">-10%</span></button>
-                    <button onclick="setMo(6)" class="calc-btn mo-btn glass text-white py-3 rounded-2xl text-sm font-semibold relative" data-val="6">6 месяцев <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-500 text-white text-[10px] px-2 py-0.5 rounded-full">-15%</span></button>
-                    <button onclick="setMo(12)" class="calc-btn mo-btn glass text-white py-3 rounded-2xl text-sm font-semibold relative" data-val="12">1 год <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full">-20%</span></button>
+                    <button onclick="setMo(1)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="1">1 месяц</button>
+                    
+                    <button onclick="setMo(3)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="3">
+                        3 месяца
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-blue-400/50 whitespace-nowrap z-10">-10%</span>
+                    </button>
+                    
+                    <button onclick="setMo(6)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="6">
+                        6 месяцев
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-purple-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-purple-400/50 whitespace-nowrap z-10">-15%</span>
+                    </button>
+                    
+                    <button onclick="setMo(12)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="12">
+                        1 год
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-green-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-green-400/50 whitespace-nowrap z-10">-20%</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Выбор метода оплаты (Появляется, если залогинен) -->
-            <div id="payment-methods" class="mb-8 hidden transition-all">
+            <!-- Выбор метода оплаты (Появляется только если залогинен в ТГ) -->
+            <div id="payment-methods" class="mb-8 hidden transition-all relative z-10">
                 <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">Способ оплаты</label>
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="setMethod('sbp')" class="calc-btn method-btn glass-active text-blue-100 py-3 rounded-xl text-sm font-semibold" data-val="sbp">СБП</button>
-                    <button onclick="setMethod('card')" class="calc-btn method-btn glass text-white py-3 rounded-xl text-sm font-semibold" data-val="card">Банковская карта</button>
+                    <button onclick="setMethod('sbp')" class="calc-btn method-btn glass-active text-blue-100 py-3 rounded-xl text-sm sm:text-base font-semibold" data-val="sbp">СБП</button>
+                    <button onclick="setMethod('card')" class="calc-btn method-btn glass text-white py-3 rounded-xl text-sm sm:text-base font-semibold" data-val="card">Банковская карта</button>
                 </div>
             </div>
 
             <div class="h-px w-full bg-white/10 mb-8"></div>
 
+            <!-- Итог -->
             <div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
                 <div class="text-center sm:text-left w-full sm:w-auto">
                     <p class="text-gray-400 text-sm mb-1 uppercase tracking-wider font-medium">К оплате</p>
@@ -169,18 +285,34 @@
                     </div>
                 </div>
                 
-                <button id="buy-btn" onclick="handleBuy()" class="tg-btn w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-lg text-white shadow-lg">
-                    Оплатить тариф
+                <!-- Кнопка меняется в зависимости от авторизации -->
+                <button id="buy-btn" onclick="handleBuy()" class="tg-btn w-full sm:w-auto px-8 py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl flex items-center justify-center gap-3 text-white shadow-lg">
+                    <svg id="tg-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <span id="btn-text">Перейти в Telegram</span>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Скрипты -->
+    <!-- Подвал -->
+    <footer class="mt-10 pb-10 pt-6 border-t border-white/5 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <lottie-player 
+                src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
+                background="transparent" speed="0.5" style="width: 24px; height: 24px; margin: 0 auto 10px;" loop autoplay>
+            </lottie-player>
+            <p class="text-gray-500 text-sm mb-4">© 2026 Compact VPN. Все системы работают в штатном режиме.</p>
+            <div class="flex justify-center gap-6">
+                <a href="https://t.me/compact_vpn_support" class="text-gray-400 hover:text-white transition text-sm">Служба поддержки</a>
+                <a href="https://t.me/compact_vpn" class="text-gray-400 hover:text-white transition text-sm">Новости сервиса</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты Личного кабинета и Калькулятора -->
     <script>
-        // === НАСТРОЙКИ ===
-        // УКАЖИ ЗДЕСЬ АДРЕС ТВОЕГО СЕРВЕРА (ГДЕ КРУТИТСЯ BOT.PY И ОТКРЫТ ПОРТ 5000 или 8443)
-        const API_BASE_URL = "http://77.221.159.199:5000"; 
+        // ИСПОЛЬЗУЕМ HTTPS ДОМЕН ЧТОБЫ НЕ БЫЛО ОШИБКИ MIXED CONTENT
+        const API_BASE_URL = "https://api.compactvpn.fun:8443"; 
         const BOT_USERNAME = "compact_vpn_bot"; // Твой бот
 
         const prices = {
@@ -195,7 +327,6 @@
         let currentMethod = 'sbp';
         let tgUser = JSON.parse(localStorage.getItem('tgUser')) || null;
 
-        // Инициализация при загрузке
         window.onload = () => {
             updateUI();
             checkAuthUI();
@@ -215,43 +346,85 @@
             toggleProfile();
         }
 
-        // Обновление кнопок интерфейса
         function checkAuthUI() {
             const authContainer = document.getElementById('auth-container');
             const profileBtn = document.getElementById('profile-btn');
+            const navBuyBtn = document.getElementById('nav-buy-btn');
             const paymentMethods = document.getElementById('payment-methods');
-            const buyBtn = document.getElementById('buy-btn');
+            const tgIcon = document.getElementById('tg-icon');
+            const btnText = document.getElementById('btn-text');
 
             if (tgUser) {
-                // Залогинен
+                // Пользователь залогинен
                 authContainer.classList.add('hidden');
                 profileBtn.classList.remove('hidden');
+                navBuyBtn.classList.add('hidden'); // Прячем лишнюю кнопку на десктопе
+                
                 document.getElementById('user-avatar').src = tgUser.photo_url || 'https://t.me/favicon.ico';
+                document.getElementById('user-name').innerText = tgUser.first_name.substring(0, 10);
+                
                 paymentMethods.classList.remove('hidden');
-                buyBtn.innerText = "Перейти к оплате 💳";
+                tgIcon.classList.add('hidden');
+                btnText.innerText = "Перейти к оплате 💳";
             } else {
                 // Не залогинен
                 authContainer.classList.remove('hidden');
                 profileBtn.classList.add('hidden');
+                navBuyBtn.classList.remove('hidden');
+                
                 paymentMethods.classList.add('hidden');
-                buyBtn.innerText = "Оплатить через Telegram";
+                tgIcon.classList.remove('hidden');
+                btnText.innerText = "Оплатить через Telegram";
             }
         }
 
-        // Управление калькулятором
         function updateUI() {
+            // Обновляем визуально кнопки Устройств
             document.querySelectorAll('.dev-btn').forEach(btn => {
-                btn.className = parseInt(btn.dataset.val) === currentDev ? 'calc-btn dev-btn glass-active text-blue-100 py-3 rounded-2xl text-sm font-semibold' : 'calc-btn dev-btn glass text-white py-3 rounded-2xl text-sm font-semibold';
-            });
-            document.querySelectorAll('.mo-btn').forEach(btn => {
-                let isAct = parseInt(btn.dataset.val) === currentMo;
-                btn.className = `calc-btn mo-btn ${isAct ? 'glass-active text-blue-100' : 'glass text-white'} py-3 rounded-2xl text-sm font-semibold relative`;
-            });
-            document.querySelectorAll('.method-btn').forEach(btn => {
-                btn.className = btn.dataset.val === currentMethod ? 'calc-btn method-btn glass-active text-blue-100 py-3 rounded-xl text-sm font-semibold' : 'calc-btn method-btn glass text-white py-3 rounded-xl text-sm font-semibold';
+                let val = parseInt(btn.getAttribute('data-val'));
+                if(val === currentDev) {
+                    btn.classList.remove('glass', 'text-white');
+                    btn.classList.add('glass-active', 'text-blue-100');
+                } else {
+                    btn.classList.remove('glass-active', 'text-blue-100');
+                    btn.classList.add('glass', 'text-white');
+                }
             });
 
-            document.getElementById('price-display').innerText = prices[`${currentDev}_${currentMo}`];
+            // Обновляем кнопки Месяцев
+            document.querySelectorAll('.mo-btn').forEach(btn => {
+                let val = parseInt(btn.getAttribute('data-val'));
+                if(val === currentMo) {
+                    btn.classList.remove('glass', 'text-white');
+                    btn.classList.add('glass-active', 'text-blue-100');
+                } else {
+                    btn.classList.remove('glass-active', 'text-blue-100');
+                    btn.classList.add('glass', 'text-white');
+                }
+            });
+
+            // Обновляем кнопки Метода оплаты
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                let val = btn.getAttribute('data-val');
+                if(val === currentMethod) {
+                    btn.classList.remove('glass', 'text-white');
+                    btn.classList.add('glass-active', 'text-blue-100');
+                } else {
+                    btn.classList.remove('glass-active', 'text-blue-100');
+                    btn.classList.add('glass', 'text-white');
+                }
+            });
+
+            // Обновляем цену
+            const priceEl = document.getElementById('price-display');
+            const newPrice = prices[`${currentDev}_${currentMo}`];
+            if(priceEl.innerText != newPrice) {
+                priceEl.style.opacity = 0;
+                setTimeout(() => {
+                    priceEl.innerText = newPrice;
+                    priceEl.style.opacity = 1;
+                }, 150);
+            }
         }
 
         function setDev(val) { currentDev = val; updateUI(); }
@@ -262,14 +435,15 @@
         async function handleBuy() {
             const btn = document.getElementById('buy-btn');
             
-            // Если не залогинен - перекидываем в бота (старый способ)
+            // Если не залогинен - перекидываем в бота
             if (!tgUser) {
                 window.location.href = `https://t.me/${BOT_USERNAME}?start=buy_${currentDev}_${currentMo}`;
                 return;
             }
 
-            // Если залогинен - создаем счет через API
-            btn.innerHTML = `<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block"></div> Загрузка...`;
+            // Если залогинен - запрос к серверу
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block"></div> <span class="ml-2">Загрузка...</span>`;
             btn.disabled = true;
 
             try {
@@ -287,15 +461,15 @@
                 const data = await res.json();
                 
                 if (data.paymentUrl) {
-                    window.location.href = data.paymentUrl; // Перенаправляем на Lava
+                    window.location.href = data.paymentUrl; // Редирект на LAVA
                 } else {
                     alert('Ошибка создания счета: ' + (data.error || 'Неизвестно'));
-                    btn.innerText = "Перейти к оплате 💳";
+                    btn.innerHTML = originalContent;
                 }
             } catch (err) {
                 console.error(err);
-                alert('Ошибка соединения с сервером.');
-                btn.innerText = "Перейти к оплате 💳";
+                alert('Ошибка соединения с сервером. Проверьте работает ли сервер Flask на https.');
+                btn.innerHTML = originalContent;
             }
             btn.disabled = false;
         }
@@ -306,19 +480,17 @@
             const content = document.getElementById('profile-content');
             
             if (modal.classList.contains('hidden')) {
-                // Открываем
                 modal.classList.remove('hidden');
                 setTimeout(() => { modal.style.opacity = '1'; content.style.transform = 'scale(1)'; }, 10);
                 loadProfileData();
             } else {
-                // Закрываем
                 modal.style.opacity = '0';
                 content.style.transform = 'scale(0.95)';
                 setTimeout(() => { modal.classList.add('hidden'); }, 300);
             }
         }
 
-        // Загрузка данных кабинета
+        // Загрузка данных профиля через API
         async function loadProfileData() {
             if (!tgUser) return;
             
@@ -358,7 +530,7 @@
             } catch (err) {
                 console.error(err);
                 document.getElementById('profile-loader').classList.add('hidden');
-                document.getElementById('sub-status-text').innerText = "Ошибка загрузки данных.";
+                document.getElementById('sub-status-text').innerText = "Ошибка загрузки данных. Сервер недоступен.";
             }
         }
 
@@ -368,6 +540,8 @@
             document.execCommand('copy');
             alert('Ссылка скопирована!');
         }
+
+        document.getElementById('price-display').style.transition = "opacity 0.15s ease";
     </script>
 </body>
 </html>
