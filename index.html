@@ -82,10 +82,6 @@
             box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
             transform: translateY(-2px);
         }
-
-        /* Стили для модалки профиля */
-        #profile-modal { transition: opacity 0.3s ease; }
-        #profile-modal.hidden { opacity: 0; pointer-events: none; display: flex !important; z-index: -1; }
     </style>
 </head>
 <body class="antialiased selection:bg-primary selection:text-white">
@@ -95,29 +91,32 @@
     <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/40 sm:bg-purple-600/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
 
     <!-- Плавающий Header -->
-    <div class="fixed top-4 left-0 right-0 z-50 px-3 sm:px-4 flex justify-center">
+    <div class="fixed top-4 left-0 right-0 z-50 px-2 sm:px-4 flex justify-center">
         <nav class="glass w-full max-w-4xl rounded-full px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between shadow-2xl">
-            <div class="flex items-center gap-1 sm:gap-2">
+            <!-- Левая часть: Логотип и Название -->
+            <div class="flex items-center gap-1 sm:gap-2 shrink-0">
                 <lottie-player 
                     src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
-                    background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay>
+                    background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay>
                 </lottie-player>
-                <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
+                <!-- На очень узких телефонах прячем название, оставляем только лого -->
+                <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap hidden min-[380px]:block">Compact VPN</span>
             </div>
             
-            <div class="flex items-center gap-2 sm:gap-3">
-                <a id="nav-buy-btn" href="#calculator" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full transition text-xs sm:text-sm font-semibold backdrop-blur-md whitespace-nowrap">
+            <!-- Правая часть: Кнопки -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <a id="nav-buy-btn" href="#calculator" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-sm font-semibold backdrop-blur-md whitespace-nowrap">
                     Тарифы
                 </a>
                 
-                <!-- Контейнер для кнопки логина / профиля -->
-                <div id="auth-container" class="h-[28px] sm:h-[36px] flex items-center overflow-hidden rounded-full transition-all">
+                <!-- Контейнер для кнопки логина / профиля (shrink-0 чтобы виджет не плющило) -->
+                <div id="auth-container" class="shrink-0 flex items-center h-[28px] sm:h-[36px] overflow-hidden rounded-full transition-all">
                     <!-- Замени 'compact_vpn_bot' на точный юзернейм своего бота без '@' -->
                     <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="compact_vpn_bot" data-size="medium" data-radius="20" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
                 </div>
                 
-                <button id="profile-btn" onclick="toggleProfile()" class="hidden bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 py-1.5 sm:py-2 rounded-full transition text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
-                    <img id="user-avatar" src="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full" alt="Avatar">
+                <button id="profile-btn" onclick="toggleProfile()" class="hidden bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <img id="user-avatar" src="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full shrink-0" alt="Avatar">
                     <span id="user-name" class="hidden sm:inline">Кабинет</span>
                 </button>
             </div>
@@ -125,8 +124,13 @@
     </div>
 
     <!-- Модальное окно Личного Кабинета -->
-    <div id="profile-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden items-center justify-center p-4 opacity-0 transition-opacity">
-        <div class="glass w-full max-w-md rounded-3xl p-6 sm:p-8 relative border border-white/10 shadow-2xl transform scale-95 transition-transform duration-300" id="profile-content">
+    <!-- Теперь оно всегда flex, но мы скрываем его прозрачностью (opacity-0) и отключаем клики (pointer-events-none) -->
+    <div id="profile-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <!-- Тёмный фон (при клике закрывает модалку) -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleProfile()"></div>
+        
+        <!-- Сама карточка -->
+        <div class="glass w-full max-w-md rounded-3xl p-6 sm:p-8 relative z-10 transform scale-95 transition-transform duration-300 shadow-2xl border border-white/10" id="profile-content">
             <button onclick="toggleProfile()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -287,7 +291,7 @@
                 
                 <!-- Кнопка меняется в зависимости от авторизации -->
                 <button id="buy-btn" onclick="handleBuy()" class="tg-btn w-full sm:w-auto px-8 py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl flex items-center justify-center gap-3 text-white shadow-lg">
-                    <svg id="tg-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <svg id="tg-icon" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                     <span id="btn-text">Перейти в Telegram</span>
                 </button>
             </div>
@@ -311,9 +315,8 @@
 
     <!-- Скрипты Личного кабинета и Калькулятора -->
     <script>
-        // ИСПОЛЬЗУЕМ HTTPS ДОМЕН ЧТОБЫ НЕ БЫЛО ОШИБКИ MIXED CONTENT
         const API_BASE_URL = "https://api.compactvpn.fun:8443"; 
-        const BOT_USERNAME = "compact_vpn_bot"; // Твой бот
+        const BOT_USERNAME = "compact_vpn_bot"; 
 
         const prices = {
             "1_1": 150,  "2_1": 200,  "3_1": 250,  "0_1": 400,
@@ -379,7 +382,6 @@
         }
 
         function updateUI() {
-            // Обновляем визуально кнопки Устройств
             document.querySelectorAll('.dev-btn').forEach(btn => {
                 let val = parseInt(btn.getAttribute('data-val'));
                 if(val === currentDev) {
@@ -391,7 +393,6 @@
                 }
             });
 
-            // Обновляем кнопки Месяцев
             document.querySelectorAll('.mo-btn').forEach(btn => {
                 let val = parseInt(btn.getAttribute('data-val'));
                 if(val === currentMo) {
@@ -403,7 +404,6 @@
                 }
             });
 
-            // Обновляем кнопки Метода оплаты
             document.querySelectorAll('.method-btn').forEach(btn => {
                 let val = btn.getAttribute('data-val');
                 if(val === currentMethod) {
@@ -415,7 +415,6 @@
                 }
             });
 
-            // Обновляем цену
             const priceEl = document.getElementById('price-display');
             const newPrice = prices[`${currentDev}_${currentMo}`];
             if(priceEl.innerText != newPrice) {
@@ -441,9 +440,8 @@
                 return;
             }
 
-            // Если залогинен - запрос к серверу
             const originalContent = btn.innerHTML;
-            btn.innerHTML = `<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block"></div> <span class="ml-2">Загрузка...</span>`;
+            btn.innerHTML = `<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block shrink-0"></div> <span class="ml-2">Загрузка...</span>`;
             btn.disabled = true;
 
             try {
@@ -468,7 +466,7 @@
                 }
             } catch (err) {
                 console.error(err);
-                alert('Ошибка соединения с сервером. Проверьте работает ли сервер Flask на https.');
+                alert('Ошибка соединения с сервером.');
                 btn.innerHTML = originalContent;
             }
             btn.disabled = false;
@@ -479,14 +477,17 @@
             const modal = document.getElementById('profile-modal');
             const content = document.getElementById('profile-content');
             
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                setTimeout(() => { modal.style.opacity = '1'; content.style.transform = 'scale(1)'; }, 10);
+            if (modal.classList.contains('pointer-events-none')) {
+                // Открываем
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
                 loadProfileData();
             } else {
-                modal.style.opacity = '0';
-                content.style.transform = 'scale(0.95)';
-                setTimeout(() => { modal.classList.add('hidden'); }, 300);
+                // Закрываем
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
             }
         }
 
@@ -530,7 +531,7 @@
             } catch (err) {
                 console.error(err);
                 document.getElementById('profile-loader').classList.add('hidden');
-                document.getElementById('sub-status-text').innerText = "Ошибка загрузки данных. Сервер недоступен.";
+                document.getElementById('sub-status-text').innerText = "Ошибка загрузки данных.";
             }
         }
 
