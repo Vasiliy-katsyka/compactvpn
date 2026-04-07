@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Политика возвратов - Compact VPN</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#3b82f6' }, animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' } } }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .text-gradient { background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { color: #fff; font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p, ul { margin-bottom: 1rem; color: #9ca3af; line-height: 1.6; }
+        ul { list-style-type: disc; padding-left: 1.5rem; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- Фоновые неоновые блики -->
+    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
+    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+
+    <!-- Плавающий Header -->
+    <div class="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
+        <nav class="glass w-full max-w-4xl rounded-full px-4 py-3 flex items-center justify-between shadow-2xl">
+            <a href="index.html" class="flex items-center gap-2 shrink-0 cursor-pointer">
+                <lottie-player src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+                <span class="font-bold text-sm sm:text-lg tracking-wide hidden min-[380px]:block">Compact VPN</span>
+            </a>
+            <a href="index.html" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-5 py-2 rounded-full transition text-xs sm:text-sm font-semibold">На главную</a>
+        </nav>
+    </div>
+
+    <!-- Контент -->
+    <section class="relative pt-32 sm:pt-40 pb-20 px-4 max-w-3xl mx-auto z-10">
+        <div class="glass rounded-[2rem] p-6 sm:p-10 shadow-2xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-8 text-gradient">Политика возвратов</h1>
+            
+            <div class="text-sm sm:text-base">
+                <p>Мы стремимся предоставлять качественный и стабильный сервис. Однако мы понимаем, что могут возникать непредвиденные ситуации, поэтому мы предусмотрели возможность возврата средств.</p>
+
+                <h2>1. В каких случаях возможен возврат</h2>
+                <p>Вы можете запросить возврат денежных средств в следующих случаях:</p>
+                <ul>
+                    <li><strong>Техническая ошибка на нашей стороне:</strong> если сервис не работает, серверы недоступны длительное время, и наша техническая поддержка не может решить проблему.</li>
+                    <li><strong>Уважительная причина:</strong> если вы ошибочно оплатили не тот тариф, сервис не работает на вашем специфическом устройстве (несмотря на следование инструкции), или возникли другие весомые обстоятельства. Каждый такой случай рассматривается индивидуально.</li>
+                </ul>
+
+                <h2>2. Как запросить возврат</h2>
+                <p>Для оформления возврата вам необходимо обратиться в нашу службу поддержки в Telegram: <a href="https://t.me/compact_vpn_support" class="text-blue-400 hover:text-blue-300">@compact_vpn_support</a>.</p>
+                <p>В сообщении укажите:</p>
+                <ul>
+                    <li>Ваш Telegram ID (или перешлите сообщение от нашего бота).</li>
+                    <li>Дату и сумму платежа.</li>
+                    <li>Причину возврата.</li>
+                </ul>
+
+                <h2>3. Сроки рассмотрения и зачисления</h2>
+                <p>Заявки на возврат рассматриваются в течение 24-48 часов. Если возврат одобрен, средства будут отправлены обратно на те же реквизиты, с которых производилась оплата. Срок поступления средств на вашу карту зависит от вашего банка и платежной системы (обычно от 1 до 5 рабочих дней).</p>
+
+                <h2>4. Отказ в возврате</h2>
+                <p>Мы оставляем за собой право отказать в возврате, если подписка была использована для нарушения законодательства, рассылки спама, или если пользователь намеренно нарушил "Пользовательское соглашение".</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="mt-10 pb-10 pt-6 border-t border-white/5 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm mb-4">© 2026 Compact VPN. Все системы работают в штатном режиме.</p>
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                <a href="terms.html" class="text-gray-500 hover:text-gray-300 transition text-xs">Пользовательское соглашение</a>
+                <a href="privacy.html" class="text-gray-500 hover:text-gray-300 transition text-xs">Политика конфиденциальности</a>
+                <a href="refund.html" class="text-white transition text-xs font-bold">Политика возвратов</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
