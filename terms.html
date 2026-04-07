@@ -5,72 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Пользовательское соглашение - Compact VPN</title>
     
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
+    <!-- Настройки Tailwind -->
     <script>
         tailwind.config = {
-            theme: { extend: { colors: { primary: '#3b82f6' }, animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' } } }
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        primary: '#3b82f6',
+                        accent: '#8b5cf6'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
         }
     </script>
+
     <style>
-        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .text-gradient { background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        h2 { color: #fff; font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-        p, ul { margin-bottom: 1rem; color: #9ca3af; line-height: 1.6; }
+        body { background-color: #050505; color: #ffffff; overflow-x: hidden; font-family: sans-serif; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Стили для юридического текста */
+        h2 { color: #fff; font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; border-left: 3px solid #3b82f6; padding-left: 12px; }
+        h3 { color: #dee2e6; font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p, ul { margin-bottom: 1.2rem; color: #9ca3af; line-height: 1.7; font-size: 0.95rem; }
         ul { list-style-type: disc; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        strong { color: #fff; }
+        .legal-box { scrollbar-width: thin; scrollbar-color: #3b82f6 rgba(255,255,255,0.1); }
     </style>
 </head>
 <body class="antialiased selection:bg-primary selection:text-white">
 
-    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
-    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+    <!-- Фоновые неоновые блики -->
+    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none z-[-1] animate-pulse-slow"></div>
+    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none z-[-1]"></div>
 
+    <!-- Плавающий Header -->
     <div class="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
         <nav class="glass w-full max-w-4xl rounded-full px-4 py-3 flex items-center justify-between shadow-2xl">
-            <a href="index.html" class="flex items-center gap-2 shrink-0 cursor-pointer">
-                <lottie-player src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+            <a href="index.html" class="flex items-center gap-2 shrink-0">
+                <lottie-player 
+                    src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
+                    background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay>
+                </lottie-player>
                 <span class="font-bold text-sm sm:text-lg tracking-wide hidden min-[380px]:block">Compact VPN</span>
             </a>
-            <a href="index.html" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-5 py-2 rounded-full transition text-xs sm:text-sm font-semibold">На главную</a>
+            
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-5 py-2 rounded-full transition text-xs sm:text-sm font-semibold backdrop-blur-md">
+                    На главную
+                </a>
+            </div>
         </nav>
     </div>
 
-    <section class="relative pt-32 sm:pt-40 pb-20 px-4 max-w-3xl mx-auto z-10">
-        <div class="glass rounded-[2rem] p-6 sm:p-10 shadow-2xl">
-            <h1 class="text-3xl sm:text-4xl font-extrabold mb-8 text-gradient">Пользовательское соглашение</h1>
-            
-            <div class="text-sm sm:text-base">
-                <p>Настоящее Пользовательское соглашение регулирует отношения между сервисом Compact VPN (далее — «Сервис») и пользователем сети Интернет (далее — «Пользователь»).</p>
+    <!-- Основной контент -->
+    <section class="relative pt-32 sm:pt-40 pb-20 px-4 max-w-4xl mx-auto z-10">
+        <div class="glass rounded-[2.5rem] p-6 sm:p-12 shadow-2xl">
+            <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 text-gradient">Пользовательское соглашение</h1>
+            <p class="text-gray-500 text-sm mb-10 italic">Последнее обновление: Октябрь 2023 г.</p>
 
-                <h2>1. Общие положения</h2>
-                <p>Используя наш Сервис (бота в Telegram, сайт и серверы VPN), Пользователь соглашается с условиями данного Соглашения. Если вы не согласны с условиями, вам следует прекратить использование Сервиса.</p>
+            <div class="legal-box">
+                <p>Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует отношения между сервисом <strong>Compact VPN</strong> (далее — «Сервис», «Мы») и физическим лицом (далее — «Пользователь»), использующим функции нашего Telegram-бота, веб-сайта и серверов VPN.</p>
+                <p>Используя Сервис или оплачивая подписку, вы подтверждаете, что полностью ознакомлены и согласны с условиями настоящего Соглашения.</p>
 
-                <h2>2. Предоставление услуг</h2>
-                <p>Сервис предоставляет доступ к виртуальной частной сети (VPN) по подписке. Сервис предоставляется по принципу "как есть" (as is). Мы прикладываем все усилия для обеспечения бесперебойной работы 24/7, но не несем ответственности за кратковременные сбои, вызванные факторами вне нашего контроля (блокировки провайдеров, сбои в дата-центрах).</p>
+                <h2>1. Общие условия и предоставление услуг</h2>
+                <p>1.1. Сервис предоставляет Пользователю доступ к инфраструктуре виртуальной частной сети (VPN) по модели платной подписки.</p>
+                <p>1.2. Доступ предоставляется исключительно в личных, некоммерческих целях.</p>
+                <p>1.3. Сервис функционирует по принципу <strong>«как есть» (as is)</strong>. Мы не гарантируем, что Сервис будет соответствовать всем ожиданиям Пользователя или работать непрерывно в условиях блокировок со стороны третьих лиц (провайдеров связи, государственных органов).</p>
 
-                <h2>3. Права и обязанности пользователя</h2>
-                <p>Пользователю <strong>запрещается</strong> использовать Сервис для:</p>
+                <h2>2. Ограничения использования (Acceptable Use Policy)</h2>
+                <p>Пользователю категорически <strong>запрещается</strong> использовать инфраструктуру Compact VPN для следующих действий:</p>
                 <ul>
-                    <li>Осуществления любой незаконной деятельности (мошенничество, фишинг, кардинг).</li>
-                    <li>Распространения вредоносного программного обеспечения и вирусов.</li>
-                    <li>Организации DDoS-атак, сканирования портов, взлома сетей.</li>
-                    <li>Массовой рассылки спама.</li>
+                    <li>Осуществление любой незаконной деятельности (мошенничество, распространение запрещенного контента, фишинг).</li>
+                    <li><strong>Использование протоколов P2P (торренты)</strong> на серверах, где это ограничено правилами дата-центра. Нарушение этого пункта может привести к автоматической блокировке аккаунта из-за жалоб правообладателей (DMCA).</li>
+                    <li>Массовая рассылка нежелательных сообщений (SPAM) в любом виде.</li>
+                    <li>Проведение DDoS-атак, сканирование портов или попытки взлома любых узлов в сети Интернет.</li>
+                    <li>Действия, которые могут привести к попаданию IP-адресов Сервиса в черные списки (Blacklists).</li>
                 </ul>
-                <p>При выявлении подобных нарушений администрация оставляет за собой право заблокировать доступ Пользователя без возврата средств.</p>
 
-                <h2>4. Ограничение ответственности</h2>
-                <p>Мы не несем ответственности за любой ущерб (прямой или косвенный), понесенный Пользователем в результате использования или невозможности использования Сервиса. Пользователь сам несет ответственность за данные, которые он передает через сеть Интернет.</p>
+                <h2>3. Отказ от ответственности (Disclaimer)</h2>
+                <p>3.1. Compact VPN является техническим посредником (провайдером доступа). Мы <strong>не контролируем и не модерируем</strong> трафик Пользователя, а также не несем ответственности за информацию, передаваемую Пользователем через наши серверы.</p>
+                <p>3.2. Мы не несем ответственности за работоспособность сторонних ресурсов (таких как Instagram, YouTube, Netflix, ChatGPT и др.). Если данные сервисы вводят дополнительные блокировки против VPN-технологий, это не является неисправностью нашего Сервиса.</p>
+                <p>3.3. Мы не несем ответственности за любой ущерб, возникший вследствие использования Сервиса или невозможности его использования (включая упущенную выгоду или потерю данных).</p>
 
-                <h2>5. Изменения соглашения</h2>
-                <p>Мы оставляем за собой право вносить изменения в данное Соглашение в любое время. Продолжая использовать Сервис после изменений, Пользователь выражает свое согласие с новыми правилами.</p>
+                <h2>4. Возрастные ограничения</h2>
+                <p>4.1. Использование Сервиса разрешено только лицам, достигшим <strong>18 лет</strong> (или возраста совершеннолетия согласно законодательству страны Пользователя).</p>
+                <p>4.2. Оплачивая услуги Сервиса, Пользователь подтверждает свое совершеннолетие.</p>
+
+                <h2>5. Оплата и подписка</h2>
+                <p>5.1. Стоимость услуг определяется текущими тарифами, указанными на Сайте или в Боте.</p>
+                <p>5.2. Подписка считается активной с момента зачисления средств на счет Сервиса.</p>
+                <p>5.3. Возврат денежных средств осуществляется согласно нашей <a href="refund.html" class="text-blue-400 hover:underline">Политике возвратов</a>.</p>
+
+                <h2>6. Конфиденциальность и файлы Cookie</h2>
+                <p>6.1. Мы собираем только минимально необходимые технические данные (Telegram ID) для обеспечения работы подписки. Подробнее — в <a href="privacy.html" class="text-blue-400 hover:underline">Политике конфиденциальности</a>.</p>
+                <p>6.2. Наш сайт использует файлы <strong>cookie</strong> для работы виджета авторизации Telegram. Продолжая использовать сайт, Пользователь выражает согласие на использование данных файлов.</p>
+
+                <h2>7. Контакты и реквизиты</h2>
+                <p>По всем юридическим вопросам, предложениям или жалобам вы можете обращаться в нашу службу поддержки:</p>
+                <ul>
+                    <li>Telegram Support: <a href="https://t.me/compact_vpn_support" class="text-blue-400 hover:text-blue-300">@compact_vpn_support</a></li>
+                    <li>Информационный канал: <a href="https://t.me/compact_vpn" class="text-blue-400 hover:text-blue-300">@compact_vpn</a></li>
+                </ul>
+                <p>Администрация Compact VPN оставляет за собой право изменять условия настоящего Соглашения в одностороннем порядке. Изменения вступают в силу с момента их публикации на этой странице.</p>
             </div>
         </div>
     </section>
 
+    <!-- Подвал (Footer) -->
     <footer class="mt-10 pb-10 pt-6 border-t border-white/5 relative z-10">
         <div class="max-w-4xl mx-auto px-4 text-center">
+            <lottie-player 
+                src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
+                background="transparent" speed="0.5" style="width: 24px; height: 24px; margin: 0 auto 10px;" loop autoplay>
+            </lottie-player>
             <p class="text-gray-500 text-sm mb-4">© 2026 Compact VPN. Все системы работают в штатном режиме.</p>
             <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
                 <a href="terms.html" class="text-white transition text-xs font-bold">Пользовательское соглашение</a>
@@ -79,5 +154,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>
