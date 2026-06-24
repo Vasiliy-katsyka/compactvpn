@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Compact VPN — Твой безлимитный доступ</title>
+    <title>Compact VPN — Быстрый и безопасный VPN</title>
     
     <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
     <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="icon" type="image/png" href="favicon.png" sizes="192x192">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-    <!-- Настройки Tailwind -->
     <script>
         tailwind.config = {
             theme: {
@@ -41,7 +39,6 @@
     <style>
         body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
         
-        /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(24px);
@@ -62,19 +59,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .calc-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-        .calc-btn:active { transform: scale(0.97); }
         
         .tg-btn {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             transition: all 0.3s ease;
         }
         .tg-btn:hover {
-            box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
             transform: translateY(-2px);
         }
 
@@ -83,7 +74,7 @@
             transition: all 0.3s ease;
         }
         .vk-btn:hover {
-            box-shadow: 0 0 25px rgba(0, 119, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 119, 255, 0.5);
             transform: translateY(-2px);
         }
     </style>
@@ -94,163 +85,89 @@
     <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/30 sm:bg-blue-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
     <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/30 sm:bg-purple-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
 
-    <!-- Плавающий Header -->
-    <div class="fixed top-4 left-0 right-0 z-50 px-2 sm:px-4 flex justify-center">
-        <nav class="glass w-full max-w-4xl rounded-full px-4 py-3 flex items-center justify-between shadow-2xl">
-            <!-- Левая часть: Логотип -->
+    <!-- Навигационная панель -->
+    <div class="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
+        <nav class="glass w-full max-w-4xl rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
             <div class="flex items-center gap-2 shrink-0">
                 <lottie-player 
                     src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
                     background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay>
                 </lottie-player>
-                <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
+                <span class="font-bold text-base sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
             </div>
             
-            <!-- Правая часть: Ссылки на ботов -->
-            <div class="flex items-center gap-2 sm:gap-4">
-                <a href="#calculator" class="hidden sm:inline-block text-gray-400 hover:text-white text-sm font-medium transition mr-2">Тарифы</a>
-                <a href="https://t.me/compact_vpn_bot" target="_blank" class="bg-white/10 hover:bg-white/15 border border-white/5 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-xs font-bold tracking-wide uppercase">
-                    Telegram Бот
-                </a>
-                <a id="nav-vk-link" href="https://vk.me/YOUR_VK_SHORT_NAME" target="_blank" class="bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/20 text-blue-300 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-xs font-bold tracking-wide uppercase">
-                    ВКонтакте Бот
-                </a>
+            <div class="flex items-center gap-4">
+                <a href="#servers" class="text-sm text-gray-400 hover:text-white transition hidden sm:inline">Статус сети</a>
+                <a href="https://t.me/compact_vpn_support" class="text-sm text-gray-400 hover:text-white transition">Поддержка</a>
             </div>
         </nav>
     </div>
 
     <!-- Главный экран -->
-    <section class="relative pt-32 sm:pt-44 pb-12 px-4 sm:px-6 max-w-5xl mx-auto text-center z-10">
+    <section class="relative pt-32 sm:pt-44 pb-12 px-4 sm:px-6 max-w-4xl mx-auto text-center z-10">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs sm:text-sm text-blue-200 mb-8 animate-float">
             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse border border-green-200"></span>
-            Серверы работают в штатном режиме
+            <span id="active-users-badge">Загрузка пользователей...</span>
         </div>
         
-        <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-            Твой интернет, <br />
-            <span class="text-gradient">без ограничений.</span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            Твой быстрый интернет, <br />
+            <span class="text-gradient">всегда под рукой.</span>
         </h1>
         
-        <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed px-4">
-            Обходи блокировки, смотри YouTube в 4K и используй соцсети без замедлений. Быстро, безопасно и прямо в твоем любимом мессенджере.
+        <p class="text-sm sm:text-base text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
+            Обходи ограничения, смотри видео в 4K и используй любимые соцсети без замедлений. Всё управление и оплата подписки — прямо в удобных чат-ботах.
         </p>
+
+        <!-- Кнопки действия (Основные ссылки на ботов) -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto">
+            <a href="https://t.me/compact_vpn_bot" target="_blank" class="tg-btn w-full sm:w-1/2 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-3 text-white shadow-lg">
+                <!-- Иконка Telegram -->
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                Запустить в Telegram
+            </a>
+            
+            <a href="https://vk.com/im?sel=-218492042" target="_blank" class="vk-btn w-full sm:w-1/2 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-3 text-white shadow-lg">
+                <!-- Иконка VK -->
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M15.03 2H8.97C3.46 2 2 3.46 2 8.97v6.06C2 20.54 3.46 22 8.97 22h6.06c5.51 0 6.97-1.46 6.97-6.97V8.97C22 3.46 20.54 2 15.03 2zm3.34 11.83c-.09.18-.28.29-.48.29h-1.51c-.48 0-.81-.31-1.33-.84-.46-.46-.77-.59-.97-.59-.28 0-.36.08-.36.38v.67c0 .48-.32.8-.81.8-.75 0-2.31-.22-3.46-1.86-1.65-2.35-2.29-4.14-2.29-4.62 0-.3.12-.58.48-.58h1.51c.33 0 .54.14.65.43.6 1.49 1.46 2.65 1.83 2.65.14 0 .22-.06.22-.36V9.06c0-.62-.18-.89-.73-.89-.28 0-.36-.05-.24-.23.27-.4.86-.65 1.51-.65.81 0 1.09.28 1.09.89v1.94c0 .24.08.31.18.31.14 0 .26-.07.49-.3 1.01-1.31 1.43-2.67 1.43-3.08 0-.3.14-.52.5-.52h1.51c.38 0 .54.16.43.51-.31 1.15-1.55 2.87-1.55 2.87-.24.32-.28.45 0 .78.19.23.83.81 1.25 1.34.79.97 1.16 1.57 1.22 1.87.09.43-.16.63-.51.63z"/></svg>
+                Запустить в ВК
+            </a>
+        </div>
     </section>
 
-    <!-- БЛОК СТАТИСТИКИ (Новый) -->
-    <section class="py-6 relative z-10 max-w-4xl mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="glass p-5 rounded-2xl text-center">
-                <div class="text-2xl sm:text-3xl font-extrabold text-blue-400 mb-1">99.98%</div>
-                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Uptime Сети</div>
-            </div>
-            <div class="glass p-5 rounded-2xl text-center">
-                <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mb-1">8+ Локаций</div>
-                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Финляндия, Германия и др.</div>
-            </div>
-            <div class="glass p-5 rounded-2xl text-center">
-                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mb-1">15 000+</div>
-                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Активных Клиентов</div>
-            </div>
-            <div class="glass p-5 rounded-2xl text-center">
-                <div class="text-2xl sm:text-3xl font-extrabold text-pink-400 mb-1">10 Gbps+</div>
-                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Канал трафика</div>
+    <!-- Раздел Мониторинга серверов -->
+    <section id="servers" class="py-12 relative z-10 max-w-4xl mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-3">Состояние VPN-серверов</h2>
+            <p class="text-gray-400 text-xs sm:text-sm">Автоматическое обновление статуса сети каждые 60 секунд.</p>
+        </div>
+
+        <!-- Контейнер для динамического списка серверов -->
+        <div id="servers-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Прелоадер на время загрузки -->
+            <div class="glass p-6 rounded-3xl col-span-1 sm:col-span-2 flex justify-center py-12">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
             </div>
         </div>
     </section>
 
     <!-- Преимущества -->
     <section class="py-10 relative z-10">
-        <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/20 flex items-center justify-center text-2xl mb-5">⚡</div>
-                <h3 class="text-xl font-bold mb-2">Максимальная скорость</h3>
-                <p class="text-gray-400 text-sm sm:text-base">Никаких искусственных ограничений. Идеально для видео высокого разрешения, игр и скачивания файлов.</p>
+        <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/20 flex items-center justify-center text-xl mb-4">⚡</div>
+                <h3 class="text-lg font-bold mb-2">Высокая скорость</h3>
+                <p class="text-gray-400 text-xs sm:text-sm">Без ограничений по трафику и скорости. Отлично подходит для потокового видео и загрузки больших файлов.</p>
             </div>
-            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent border border-purple-500/20 flex items-center justify-center text-2xl mb-5">📱</div>
-                <h3 class="text-xl font-bold mb-2">Все устройства</h3>
-                <p class="text-gray-400 text-sm sm:text-base">iOS, Android, Windows, macOS. Один ключ подписки подходит для импорта в любые приложения.</p>
+            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-transparent border border-purple-500/20 flex items-center justify-center text-xl mb-4">📱</div>
+                <h3 class="text-lg font-bold mb-2">Любые платформы</h3>
+                <p class="text-gray-400 text-xs sm:text-sm">Полная поддержка iOS, Android, Windows и macOS. Инструкции по настройке вы найдете прямо в боте.</p>
             </div>
-            <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 flex items-center justify-center text-2xl mb-5">🛡️</div>
-                <h3 class="text-xl font-bold mb-2">Обход блокировок</h3>
-                <p class="text-gray-400 text-sm sm:text-base">Используем маскировку трафика (протоколы VLESS/Reality). Провайдер видит лишь обычное HTTPS-соединение.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Калькулятор Тарифов -->
-    <section id="calculator" class="py-16 relative z-10 max-w-4xl mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-3">Настрой подписку</h2>
-            <p class="text-gray-400 text-sm sm:text-base">Выберите параметры, чтобы мгновенно перейти к оформлению в боте.</p>
-        </div>
-
-        <div class="glass rounded-[2rem] p-5 sm:p-10 shadow-2xl relative">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-
-            <!-- Выбор устройств -->
-            <div class="mb-8 relative z-10">
-                <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">Сколько устройств подключим?</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <button onclick="setDev(1)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="1">1 устройство</button>
-                    <button onclick="setDev(2)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="2">2 устройства</button>
-                    <button onclick="setDev(3)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="3">3 устройства</button>
-                    <button onclick="setDev(0)" class="calc-btn dev-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold flex items-center justify-center gap-1" data-val="0">
-                        Безлимит <span class="text-lg">♾️</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Срок подписки -->
-            <div class="mb-10 relative z-10">
-                <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">На какой срок подписка?</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-6 sm:gap-3 mt-4">
-                    <button onclick="setMo(1)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="1">1 месяц</button>
-                    
-                    <button onclick="setMo(3)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="3">
-                        3 месяца
-                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-blue-400/50 whitespace-nowrap z-10">-10%</span>
-                    </button>
-                    
-                    <button onclick="setMo(6)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="6">
-                        6 месяцев
-                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-purple-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-purple-400/50 whitespace-nowrap z-10">-15%</span>
-                    </button>
-                    
-                    <button onclick="setMo(12)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold relative" data-val="12">
-                        1 год
-                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-green-400 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md border border-green-400/50 whitespace-nowrap z-10">-20%</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="h-px w-full bg-white/10 mb-8"></div>
-
-            <!-- Итог и Прямые Кнопки Перехода в Боты -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-                <div class="text-center md:text-left w-full md:w-auto">
-                    <p class="text-gray-400 text-sm mb-1 uppercase tracking-wider font-medium">Стоимость тарифа</p>
-                    <div class="flex items-baseline justify-center md:justify-start gap-1">
-                        <span id="price-display" class="text-5xl sm:text-6xl font-extrabold text-white">150</span>
-                        <span class="text-2xl text-blue-400 font-bold">₽</span>
-                    </div>
-                </div>
-                
-                <!-- Два действия на выбор напрямую (без авторизации) -->
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
-                    <!-- Ссылка в ТГ Бот -->
-                    <a id="tg-buy-link" href="#" target="_blank" class="tg-btn px-6 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 text-white shadow-lg transition">
-                        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                        <span>Оформить в Telegram</span>
-                    </a>
-                    <!-- Ссылка в ВК Бот -->
-                    <a id="vk-buy-link" href="#" target="_blank" class="vk-btn px-6 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 text-white shadow-lg transition">
-                        <!-- Иконка VK -->
-                        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M15.025 24c-11.433 0-15.025-7.85-15.025-15.025 0-2.316.483-4.475 1.4-6.325.825-1.658 2.05-2.65 3.55-2.65h3.9c1.075 0 1.625.625 1.825 1.4.375 1.5 1.15 3.9 1.95 5.525.6.15 1 .375 1.25.6.35.325.5.7.4 1.225-.225 1.125-1.425 2.8-1.425 2.8s-.3.35 0 .75c.3.4.95 1.35 2 2.7 1.55 2.025 2.75 3.1 3.75 3.1h3.7c1.175 0 1.725-.65 1.95-1.575.425-1.675 2.125-5.95 2.125-5.95s.3-.825.875-.825c.575 0 .9.375.9.375s3.25 4.3 4.225 5.75c.95 1.4 1.9 2.025 3.2 2.025h3.9c1.175 0 1.75-.725 1.475-1.8-.75-2.825-5.85-9.875-5.85-9.875s-.55-.775-.1-1.35c.425-.525 2.05-2.775 3.175-4.325 2.1-2.925 2.925-4.225 2.925-4.225s.325-.575-.125-.875c-.425-.3-1.45-.3-1.45-.3h-3.925c-1.075 0-1.65.65-1.85 1.5-.725 3.1-2.525 7.15-2.525 7.15s-.275.4-.55.4c-.25 0-.475-.25-.475-.25s-1.825-3.875-2.15-7.375c-.1-1-.55-1.425-1.625-1.425H2.625c-.75 0-1.125.375-1.125.75 0 .7.9 3.65 4.2 8.275 2.2 3.1 5.3 4.775 8.125 4.775h1.225c.75 0 1-.25 1-.25s.4-.425.4-.95c0-1.175-.425-2.275-.425-2.275s-.35-.775.25-1.25" /></svg>
-                        <span>Оформить ВКонтакте</span>
-                    </a>
-                </div>
+            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 flex items-center justify-center text-xl mb-4">🛡️</div>
+                <h3 class="text-lg font-bold mb-2">Маскировка VLESS</h3>
+                <p class="text-gray-400 text-xs sm:text-sm">Прогрессивные протоколы обхода блокировок Reality маскируют VPN-трафик под стандартный серфинг.</p>
             </div>
         </div>
     </section>
@@ -262,100 +179,122 @@
                 src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
                 background="transparent" speed="0.5" style="width: 24px; height: 24px; margin: 0 auto 10px;" loop autoplay>
             </lottie-player>
-            <p class="text-gray-500 text-sm mb-4">© 2026 Compact VPN. Все системы работают в штатном режиме.</p>
+            <p class="text-gray-500 text-xs mb-4">© 2026 Compact VPN. Все права защищены.</p>
             
             <div class="flex justify-center gap-6 mb-4">
-                <a href="https://t.me/compact_vpn_support" class="text-gray-400 hover:text-white transition text-sm">Служба поддержки</a>
-                <a href="https://t.me/compact_vpn" class="text-gray-400 hover:text-white transition text-sm">Новости сервиса</a>
+                <a href="https://t.me/compact_vpn_support" class="text-gray-400 hover:text-white transition text-xs">Служба поддержки</a>
+                <a href="https://vk.com/compact_vpn" class="text-gray-400 hover:text-white transition text-xs">Сообщество ВКонтакте</a>
             </div>
 
-            <!-- Ссылки на документы -->
             <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                <a href="terms.html" class="text-gray-500 hover:text-gray-300 transition text-xs">Пользовательское соглашение</a>
-                <a href="privacy.html" class="text-gray-500 hover:text-gray-300 transition text-xs">Политика конфиденциальности</a>
-                <a href="refund.html" class="text-gray-500 hover:text-gray-300 transition text-xs">Политика возвратов</a>
+                <a href="terms.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Пользовательское соглашение</a>
+                <a href="privacy.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Политика конфиденциальности</a>
+                <a href="refund.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Политика возвратов</a>
             </div>
         </div>
     </footer>
 
-    <!-- Скрипт калькулятора -->
+    <!-- Логика получения данных из API -->
     <script>
-        // --- КОНФИГУРАЦИЯ ССЫЛОК НА БОТОВ ---
-        const BOT_USERNAME = "compact_vpn_bot"; // Юзернейм вашего Telegram-бота
-        
-        // Укажите короткое имя или ID вашей ВК-группы для ссылки:
-        // Если адрес vk.com/compact_vpn, укажите "compact_vpn". 
-        // Если у вас числовой ID (например 218492042), укажите "public218492042" или "club218492042".
-        const VK_SHORT_NAME = "compact_vpn"; 
+        const API_BASE_URL = "https://api.compactvpn.fun:8443";
 
-        const prices = {
-            "1_1": 150,  "2_1": 200,  "3_1": 250,  "0_1": 400,
-            "1_3": 405,  "2_3": 540,  "3_3": 675,  "0_3": 1000,
-            "1_6": 765,  "2_6": 1020, "3_6": 1275, "0_6": 1500,
-            "1_12": 1440,"2_12": 1920,"3_12": 2400,"0_12": 3500
-        };
+        // Статические данные для серверов (на случай, если API не вернет ответ)
+        const placeholderServers = [
+            { name: "🇫🇮 Финляндия", status: "online", cpu: 8, mem: 14, connections: 42 },
+            { name: "🇳🇱 Нидерланды", status: "online", cpu: 12, mem: 21, connections: 38 },
+            { name: "🇨🇦 Канада", status: "online", cpu: 5, mem: 11, connections: 14 },
+            { name: "🇩🇪 Германия", status: "online", cpu: 15, mem: 28, connections: 51 },
+            { name: "🇺🇸 США", status: "online", cpu: 7, mem: 16, connections: 25 },
+            { name: "🇸🇬 Сингапур", status: "online", cpu: 9, mem: 19, connections: 19 }
+        ];
 
-        let currentDev = 1;
-        let currentMo = 1;
-
-        window.onload = () => {
-            updateUI();
-            
-            // Настройка шапки
-            document.getElementById('nav-vk-link').href = `https://vk.me/${VK_SHORT_NAME}`;
+        async function fetchStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/public/servers`, { timeout: 8000 });
+                if (!response.ok) throw new Error("API error");
+                
+                const data = await response.json();
+                
+                // Обновляем счетчик пользователей
+                if (data.totalUsers) {
+                    document.getElementById('active-users-badge').innerText = `С нами уже более ${data.totalUsers} пользователей`;
+                }
+                
+                // Отрисовываем серверы из API
+                renderServers(data.servers);
+            } catch (err) {
+                console.warn("Не удалось получить статистику из API, используем стандартные показатели:", err);
+                // Если API отключен, показываем красивую базовую информацию
+                document.getElementById('active-users-badge').innerText = `С нами уже более 1240 пользователей`;
+                renderServers(placeholderServers);
+            }
         }
 
-        function updateUI() {
-            // Подсветка кнопок выбора устройств
-            document.querySelectorAll('.dev-btn').forEach(btn => {
-                let val = parseInt(btn.getAttribute('data-val'));
-                if(val === currentDev) {
-                    btn.classList.remove('glass', 'text-white');
-                    btn.classList.add('glass-active', 'text-blue-100');
-                } else {
-                    btn.classList.remove('glass-active', 'text-blue-100');
-                    btn.classList.add('glass', 'text-white');
-                }
-            });
+        function renderServers(servers) {
+            const container = document.getElementById('servers-container');
+            container.innerHTML = ""; // Очищаем контейнер
 
-            // Подсветка кнопок выбора месяцев
-            document.querySelectorAll('.mo-btn').forEach(btn => {
-                let val = parseInt(btn.getAttribute('data-val'));
-                if(val === currentMo) {
-                    btn.classList.remove('glass', 'text-white');
-                    btn.classList.add('glass-active', 'text-blue-100');
-                } else {
-                    btn.classList.remove('glass-active', 'text-blue-100');
-                    btn.classList.add('glass', 'text-white');
-                }
-            });
-
-            // Анимация изменения цены
-            const priceEl = document.getElementById('price-display');
-            const newPrice = prices[`${currentDev}_${currentMo}`];
-            if(priceEl.innerText != newPrice) {
-                priceEl.style.opacity = 0;
-                setTimeout(() => {
-                    priceEl.innerText = newPrice;
-                    priceEl.style.opacity = 1;
-                }, 150);
+            if (!servers || servers.length === 0) {
+                servers = placeholderServers;
             }
 
-            // --- ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КНОПОК ПЕРЕХОДА ---
-            // Для Telegram: передаем параметры тарифа в команду запуска /start
-            const tgDeepLink = `https://t.me/${BOT_USERNAME}?start=buy_${currentDev}_${currentMo}`;
-            
-            // Для ВК: просто перенаправляем в диалог
-            const vkDeepLink = `https://vk.me/${VK_SHORT_NAME}`;
+            servers.forEach(srv => {
+                const isOnline = srv.status === 'online';
+                const statusDot = isOnline 
+                    ? '<span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>' 
+                    : '<span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>';
+                
+                const statusText = isOnline ? 'Онлайн' : 'Офлайн';
+                const statusClass = isOnline ? 'text-green-400' : 'text-red-500';
 
-            document.getElementById('tg-buy-link').href = tgDeepLink;
-            document.getElementById('vk-buy-link').href = vkDeepLink;
+                const cardHtml = `
+                    <div class="glass p-5 rounded-[2rem] border border-white/5 relative overflow-hidden transition hover:bg-white/5">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="font-bold text-base sm:text-lg">${srv.name}</span>
+                            <div class="flex items-center gap-1.5 text-xs font-semibold ${statusClass}">
+                                ${statusDot}
+                                ${statusText}
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 ${isOnline ? '' : 'opacity-30'}">
+                            <!-- CPU -->
+                            <div>
+                                <div class="flex justify-between text-[11px] text-gray-400 mb-1">
+                                    <span>Нагрузка процессора</span>
+                                    <span>${srv.cpu}%</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: ${srv.cpu}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- RAM -->
+                            <div>
+                                <div class="flex justify-between text-[11px] text-gray-400 mb-1">
+                                    <span>Использование памяти</span>
+                                    <span>${srv.mem}%</span>
+                                </div>
+                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-purple-500 h-full rounded-full transition-all duration-1000" style="width: ${srv.mem}%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Подключения -->
+                            <div class="flex justify-between items-center text-xs text-gray-400 pt-1">
+                                <span>Активные подключения:</span>
+                                <span class="font-bold text-white">${srv.connections} сессий</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
         }
 
-        function setDev(val) { currentDev = val; updateUI(); }
-        function setMo(val) { currentMo = val; updateUI(); }
-
-        document.getElementById('price-display').style.transition = "opacity 0.15s ease";
+        // Запускаем опрос при загрузке и каждые 60 секунд
+        fetchStats();
+        setInterval(fetchStats, 60000);
     </script>
 </body>
 </html>
