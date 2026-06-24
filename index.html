@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Compact VPN</title>
+    <title>Compact VPN — Твой безлимитный доступ</title>
     
     <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
@@ -39,10 +39,9 @@
     </script>
 
     <style>
-        /* Базовые настройки */
         body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
         
-        /* Идеальное матовое стекло (Glassmorphism) */
+        /* Glassmorphism */
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(24px);
@@ -50,7 +49,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* Светящееся стекло для активных элементов */
         .glass-active {
             background: rgba(59, 130, 246, 0.15);
             backdrop-filter: blur(24px);
@@ -59,27 +57,33 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
         }
 
-        /* Текст с градиентом */
         .text-gradient {
             background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Кнопки в калькуляторе */
         .calc-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
         .calc-btn:active { transform: scale(0.97); }
         
-        /* Градиентная кнопка Telegram */
         .tg-btn {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             transition: all 0.3s ease;
         }
         .tg-btn:hover {
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .vk-btn {
+            background: linear-gradient(135deg, #0077ff, #0055cc);
+            transition: all 0.3s ease;
+        }
+        .vk-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 119, 255, 0.4);
             transform: translateY(-2px);
         }
     </style>
@@ -87,118 +91,71 @@
 <body class="antialiased selection:bg-primary selection:text-white">
 
     <!-- Фоновые неоновые блики -->
-    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/40 sm:bg-blue-600/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
-    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/40 sm:bg-purple-600/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
+    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/30 sm:bg-blue-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
+    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/30 sm:bg-purple-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
 
     <!-- Плавающий Header -->
     <div class="fixed top-4 left-0 right-0 z-50 px-2 sm:px-4 flex justify-center">
-        <nav class="glass w-full max-w-4xl rounded-full px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between shadow-2xl">
-            <!-- Левая часть: Логотип и Название -->
-            <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+        <nav class="glass w-full max-w-4xl rounded-full px-4 py-3 flex items-center justify-between shadow-2xl">
+            <!-- Левая часть: Логотип -->
+            <div class="flex items-center gap-2 shrink-0">
                 <lottie-player 
                     src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
                     background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay>
                 </lottie-player>
-                <!-- На очень узких телефонах прячем название, оставляем только лого -->
-                <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap hidden min-[380px]:block">Compact VPN</span>
+                <span class="font-bold text-sm sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
             </div>
             
-            <!-- Правая часть: Кнопки -->
-            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                <a id="nav-buy-btn" href="#calculator" class="bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-sm font-semibold backdrop-blur-md whitespace-nowrap">
-                    Тарифы
+            <!-- Правая часть: Ссылки на ботов -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <a href="#calculator" class="hidden sm:inline-block text-gray-400 hover:text-white text-sm font-medium transition mr-2">Тарифы</a>
+                <a href="https://t.me/compact_vpn_bot" target="_blank" class="bg-white/10 hover:bg-white/15 border border-white/5 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-xs font-bold tracking-wide uppercase">
+                    Telegram Бот
                 </a>
-                
-                <!-- Контейнер для кнопки логина / профиля (shrink-0 чтобы виджет не плющило) -->
-                <div id="auth-container" class="shrink-0 flex items-center h-[28px] sm:h-[36px] overflow-hidden rounded-full transition-all">
-                    <!-- Замени 'compact_vpn_bot' на точный юзернейм своего бота без '@' -->
-                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="compact_vpn_bot" data-size="medium" data-radius="20" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-                </div>
-                
-                <button id="profile-btn" onclick="toggleProfile()" class="hidden bg-white/10 hover:bg-white/20 border border-white/5 text-white px-3 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap">
-                    <img id="user-avatar" src="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full shrink-0" alt="Avatar">
-                    <span id="user-name" class="hidden sm:inline">Кабинет</span>
-                </button>
+                <a id="nav-vk-link" href="https://vk.me/YOUR_VK_SHORT_NAME" target="_blank" class="bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/20 text-blue-300 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition text-[11px] sm:text-xs font-bold tracking-wide uppercase">
+                    ВКонтакте Бот
+                </a>
             </div>
         </nav>
     </div>
 
-    <!-- Модальное окно Личного Кабинета -->
-    <!-- Теперь оно всегда flex, но мы скрываем его прозрачностью (opacity-0) и отключаем клики (pointer-events-none) -->
-    <div id="profile-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <!-- Тёмный фон (при клике закрывает модалку) -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleProfile()"></div>
-        
-        <!-- Сама карточка -->
-        <div class="glass w-full max-w-md rounded-3xl p-6 sm:p-8 relative z-10 transform scale-95 transition-transform duration-300 shadow-2xl border border-white/10" id="profile-content">
-            <button onclick="toggleProfile()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold mb-1">Личный кабинет</h2>
-                <p id="sub-status-text" class="text-gray-400 text-sm">Загрузка данных...</p>
-            </div>
-
-            <div id="profile-loader" class="flex justify-center py-8">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            </div>
-
-            <div id="profile-data" class="hidden space-y-4">
-                <div class="bg-white/5 rounded-xl p-4 border border-white/5">
-                    <div class="flex justify-between text-sm mb-2">
-                        <span class="text-gray-400">Статус:</span>
-                        <span id="sub-status" class="font-bold text-green-400">Активен</span>
-                    </div>
-                    <div class="flex justify-between text-sm mb-2">
-                        <span class="text-gray-400">Действует до:</span>
-                        <span id="sub-expiry" class="font-bold">--</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">Устройств:</span>
-                        <span id="sub-devices" class="font-bold">--</span>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 rounded-xl p-4 border border-white/5">
-                    <p class="text-sm text-gray-400 mb-2">Твоя ссылка для подключения:</p>
-                    <div class="flex items-center gap-2">
-                        <input type="text" id="sub-link" readonly class="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300 outline-none">
-                        <button onclick="copyLink()" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition">Копия</button>
-                    </div>
-                </div>
-
-                <button onclick="toggleProfile(); document.getElementById('calculator').scrollIntoView();" class="w-full bg-white/10 hover:bg-white/20 border border-white/10 text-white py-3 rounded-xl font-semibold transition mt-2">
-                    Продлить подписку
-                </button>
-                <button onclick="logout()" class="w-full text-red-400 hover:text-red-300 text-sm py-2 mt-2 transition">Выйти из аккаунта</button>
-            </div>
-            
-            <div id="profile-empty" class="hidden text-center py-4">
-                <p class="text-gray-300 mb-4">У тебя пока нет активной подписки.</p>
-                <button onclick="toggleProfile(); document.getElementById('calculator').scrollIntoView();" class="w-full tg-btn text-white py-3 rounded-xl font-semibold transition">
-                    Оформить тариф
-                </button>
-                <button onclick="logout()" class="w-full text-red-400 hover:text-red-300 text-sm py-2 mt-4 transition">Выйти из аккаунта</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Главный экран -->
-    <section class="relative pt-32 sm:pt-48 pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center z-10">
+    <section class="relative pt-32 sm:pt-44 pb-12 px-4 sm:px-6 max-w-5xl mx-auto text-center z-10">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs sm:text-sm text-blue-200 mb-8 animate-float">
             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse border border-green-200"></span>
-            Серверы работают стабильно
+            Серверы работают в штатном режиме
         </div>
         
         <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
             Твой интернет, <br />
-            <span class="text-gradient">без границ.</span>
+            <span class="text-gradient">без ограничений.</span>
         </h1>
         
         <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed px-4">
-            Обходи блокировки, смотри YouTube 4K и листай Instagram без замедлений. Защищенно, быстро и в один клик.
+            Обходи блокировки, смотри YouTube в 4K и используй соцсети без замедлений. Быстро, безопасно и прямо в твоем любимом мессенджере.
         </p>
+    </section>
+
+    <!-- БЛОК СТАТИСТИКИ (Новый) -->
+    <section class="py-6 relative z-10 max-w-4xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass p-5 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-blue-400 mb-1">99.98%</div>
+                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Uptime Сети</div>
+            </div>
+            <div class="glass p-5 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mb-1">8+ Локаций</div>
+                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Финляндия, Германия и др.</div>
+            </div>
+            <div class="glass p-5 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mb-1">15 000+</div>
+                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Активных Клиентов</div>
+            </div>
+            <div class="glass p-5 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-pink-400 mb-1">10 Gbps+</div>
+                <div class="text-gray-400 text-[11px] sm:text-xs font-medium uppercase tracking-wider">Канал трафика</div>
+            </div>
+        </div>
     </section>
 
     <!-- Преимущества -->
@@ -207,32 +164,32 @@
             <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/20 flex items-center justify-center text-2xl mb-5">⚡</div>
                 <h3 class="text-xl font-bold mb-2">Максимальная скорость</h3>
-                <p class="text-gray-400 text-sm sm:text-base">Никаких урезаний канала. Идеально для просмотра видео, стримов и тяжелых файлов.</p>
+                <p class="text-gray-400 text-sm sm:text-base">Никаких искусственных ограничений. Идеально для видео высокого разрешения, игр и скачивания файлов.</p>
             </div>
             <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-transparent border border-purple-500/20 flex items-center justify-center text-2xl mb-5">📱</div>
-                <h3 class="text-xl font-bold mb-2">На любых устройствах</h3>
-                <p class="text-gray-400 text-sm sm:text-base">iOS, Android, Windows, macOS. Одна подписка — доступ для всех твоих гаджетов.</p>
+                <h3 class="text-xl font-bold mb-2">Все устройства</h3>
+                <p class="text-gray-400 text-sm sm:text-base">iOS, Android, Windows, macOS. Один ключ подписки подходит для импорта в любые приложения.</p>
             </div>
             <div class="glass p-6 sm:p-8 rounded-3xl hover:bg-white/5 transition duration-500">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 flex items-center justify-center text-2xl mb-5">🛡️</div>
                 <h3 class="text-xl font-bold mb-2">Обход блокировок</h3>
-                <p class="text-gray-400 text-sm sm:text-base">Используем маскировку трафика (VLESS/Reality). Провайдер видит лишь обычный серфинг.</p>
+                <p class="text-gray-400 text-sm sm:text-base">Используем маскировку трафика (протоколы VLESS/Reality). Провайдер видит лишь обычное HTTPS-соединение.</p>
             </div>
         </div>
     </section>
 
     <!-- Калькулятор Тарифов -->
-    <section id="calculator" class="py-20 relative z-10 max-w-4xl mx-auto px-4">
+    <section id="calculator" class="py-16 relative z-10 max-w-4xl mx-auto px-4">
         <div class="text-center mb-10">
             <h2 class="text-3xl sm:text-4xl font-bold mb-3">Настрой подписку</h2>
-            <p class="text-gray-400 text-sm sm:text-base">Выбери параметры, счет на оплату придет в Telegram.</p>
+            <p class="text-gray-400 text-sm sm:text-base">Выберите параметры, чтобы мгновенно перейти к оформлению в боте.</p>
         </div>
 
         <div class="glass rounded-[2rem] p-5 sm:p-10 shadow-2xl relative">
             <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-            <!-- Устройства -->
+            <!-- Выбор устройств -->
             <div class="mb-8 relative z-10">
                 <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">Сколько устройств подключим?</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -245,9 +202,9 @@
                 </div>
             </div>
 
-            <!-- Месяцы -->
+            <!-- Срок подписки -->
             <div class="mb-10 relative z-10">
-                <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">На какой срок?</label>
+                <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">На какой срок подписка?</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-6 sm:gap-3 mt-4">
                     <button onclick="setMo(1)" class="calc-btn mo-btn glass text-white py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold" data-val="1">1 месяц</button>
                     
@@ -268,32 +225,32 @@
                 </div>
             </div>
 
-            <!-- Выбор метода оплаты (Появляется только если залогинен в ТГ) -->
-            <div id="payment-methods" class="mb-8 hidden transition-all relative z-10">
-                <label class="block text-sm sm:text-base font-medium text-gray-300 mb-4 ml-1">Способ оплаты</label>
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="setMethod('sbp')" class="calc-btn method-btn glass-active text-blue-100 py-3 rounded-xl text-sm sm:text-base font-semibold" data-val="sbp">СБП</button>
-                    <button onclick="setMethod('card')" class="calc-btn method-btn glass text-white py-3 rounded-xl text-sm sm:text-base font-semibold" data-val="card">Банковская карта</button>
-                </div>
-            </div>
-
             <div class="h-px w-full bg-white/10 mb-8"></div>
 
-            <!-- Итог -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
-                <div class="text-center sm:text-left w-full sm:w-auto">
-                    <p class="text-gray-400 text-sm mb-1 uppercase tracking-wider font-medium">К оплате</p>
-                    <div class="flex items-baseline justify-center sm:justify-start gap-1">
+            <!-- Итог и Прямые Кнопки Перехода в Боты -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                <div class="text-center md:text-left w-full md:w-auto">
+                    <p class="text-gray-400 text-sm mb-1 uppercase tracking-wider font-medium">Стоимость тарифа</p>
+                    <div class="flex items-baseline justify-center md:justify-start gap-1">
                         <span id="price-display" class="text-5xl sm:text-6xl font-extrabold text-white">150</span>
                         <span class="text-2xl text-blue-400 font-bold">₽</span>
                     </div>
                 </div>
                 
-                <!-- Кнопка меняется в зависимости от авторизации -->
-                <button id="buy-btn" onclick="handleBuy()" class="tg-btn w-full sm:w-auto px-8 py-4 sm:py-5 rounded-2xl font-bold text-lg sm:text-xl flex items-center justify-center gap-3 text-white shadow-lg">
-                    <svg id="tg-icon" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    <span id="btn-text">Перейти в Telegram</span>
-                </button>
+                <!-- Два действия на выбор напрямую (без авторизации) -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+                    <!-- Ссылка в ТГ Бот -->
+                    <a id="tg-buy-link" href="#" target="_blank" class="tg-btn px-6 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 text-white shadow-lg transition">
+                        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        <span>Оформить в Telegram</span>
+                    </a>
+                    <!-- Ссылка в ВК Бот -->
+                    <a id="vk-buy-link" href="#" target="_blank" class="vk-btn px-6 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 text-white shadow-lg transition">
+                        <!-- Иконка VK -->
+                        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M15.025 24c-11.433 0-15.025-7.85-15.025-15.025 0-2.316.483-4.475 1.4-6.325.825-1.658 2.05-2.65 3.55-2.65h3.9c1.075 0 1.625.625 1.825 1.4.375 1.5 1.15 3.9 1.95 5.525.6.15 1 .375 1.25.6.35.325.5.7.4 1.225-.225 1.125-1.425 2.8-1.425 2.8s-.3.35 0 .75c.3.4.95 1.35 2 2.7 1.55 2.025 2.75 3.1 3.75 3.1h3.7c1.175 0 1.725-.65 1.95-1.575.425-1.675 2.125-5.95 2.125-5.95s.3-.825.875-.825c.575 0 .9.375.9.375s3.25 4.3 4.225 5.75c.95 1.4 1.9 2.025 3.2 2.025h3.9c1.175 0 1.75-.725 1.475-1.8-.75-2.825-5.85-9.875-5.85-9.875s-.55-.775-.1-1.35c.425-.525 2.05-2.775 3.175-4.325 2.1-2.925 2.925-4.225 2.925-4.225s.325-.575-.125-.875c-.425-.3-1.45-.3-1.45-.3h-3.925c-1.075 0-1.65.65-1.85 1.5-.725 3.1-2.525 7.15-2.525 7.15s-.275.4-.55.4c-.25 0-.475-.25-.475-.25s-1.825-3.875-2.15-7.375c-.1-1-.55-1.425-1.625-1.425H2.625c-.75 0-1.125.375-1.125.75 0 .7.9 3.65 4.2 8.275 2.2 3.1 5.3 4.775 8.125 4.775h1.225c.75 0 1-.25 1-.25s.4-.425.4-.95c0-1.175-.425-2.275-.425-2.275s-.35-.775.25-1.25" /></svg>
+                        <span>Оформить ВКонтакте</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -321,10 +278,15 @@
         </div>
     </footer>
 
-    <!-- Скрипты Личного кабинета и Калькулятора -->
+    <!-- Скрипт калькулятора -->
     <script>
-        const API_BASE_URL = "https://api.compactvpn.fun:8443"; 
-        const BOT_USERNAME = "compact_vpn_bot"; 
+        // --- КОНФИГУРАЦИЯ ССЫЛОК НА БОТОВ ---
+        const BOT_USERNAME = "compact_vpn_bot"; // Юзернейм вашего Telegram-бота
+        
+        // Укажите короткое имя или ID вашей ВК-группы для ссылки:
+        // Если адрес vk.com/compact_vpn, укажите "compact_vpn". 
+        // Если у вас числовой ID (например 218492042), укажите "public218492042" или "club218492042".
+        const VK_SHORT_NAME = "compact_vpn"; 
 
         const prices = {
             "1_1": 150,  "2_1": 200,  "3_1": 250,  "0_1": 400,
@@ -335,61 +297,16 @@
 
         let currentDev = 1;
         let currentMo = 1;
-        let currentMethod = 'sbp';
-        let tgUser = JSON.parse(localStorage.getItem('tgUser')) || null;
 
         window.onload = () => {
             updateUI();
-            checkAuthUI();
-        }
-
-        // Авторизация через Telegram Widget
-        function onTelegramAuth(user) {
-            localStorage.setItem('tgUser', JSON.stringify(user));
-            tgUser = user;
-            checkAuthUI();
-        }
-
-        function logout() {
-            localStorage.removeItem('tgUser');
-            tgUser = null;
-            checkAuthUI();
-            toggleProfile();
-        }
-
-        function checkAuthUI() {
-            const authContainer = document.getElementById('auth-container');
-            const profileBtn = document.getElementById('profile-btn');
-            const navBuyBtn = document.getElementById('nav-buy-btn');
-            const paymentMethods = document.getElementById('payment-methods');
-            const tgIcon = document.getElementById('tg-icon');
-            const btnText = document.getElementById('btn-text');
-
-            if (tgUser) {
-                // Пользователь залогинен
-                authContainer.classList.add('hidden');
-                profileBtn.classList.remove('hidden');
-                navBuyBtn.classList.add('hidden'); // Прячем лишнюю кнопку на десктопе
-                
-                document.getElementById('user-avatar').src = tgUser.photo_url || 'https://t.me/favicon.ico';
-                document.getElementById('user-name').innerText = tgUser.first_name.substring(0, 10);
-                
-                paymentMethods.classList.remove('hidden');
-                tgIcon.classList.add('hidden');
-                btnText.innerText = "Перейти к оплате 💳";
-            } else {
-                // Не залогинен
-                authContainer.classList.remove('hidden');
-                profileBtn.classList.add('hidden');
-                navBuyBtn.classList.remove('hidden');
-                
-                paymentMethods.classList.add('hidden');
-                tgIcon.classList.remove('hidden');
-                btnText.innerText = "Оплатить через Telegram";
-            }
+            
+            // Настройка шапки
+            document.getElementById('nav-vk-link').href = `https://vk.me/${VK_SHORT_NAME}`;
         }
 
         function updateUI() {
+            // Подсветка кнопок выбора устройств
             document.querySelectorAll('.dev-btn').forEach(btn => {
                 let val = parseInt(btn.getAttribute('data-val'));
                 if(val === currentDev) {
@@ -401,6 +318,7 @@
                 }
             });
 
+            // Подсветка кнопок выбора месяцев
             document.querySelectorAll('.mo-btn').forEach(btn => {
                 let val = parseInt(btn.getAttribute('data-val'));
                 if(val === currentMo) {
@@ -412,17 +330,7 @@
                 }
             });
 
-            document.querySelectorAll('.method-btn').forEach(btn => {
-                let val = btn.getAttribute('data-val');
-                if(val === currentMethod) {
-                    btn.classList.remove('glass', 'text-white');
-                    btn.classList.add('glass-active', 'text-blue-100');
-                } else {
-                    btn.classList.remove('glass-active', 'text-blue-100');
-                    btn.classList.add('glass', 'text-white');
-                }
-            });
-
+            // Анимация изменения цены
             const priceEl = document.getElementById('price-display');
             const newPrice = prices[`${currentDev}_${currentMo}`];
             if(priceEl.innerText != newPrice) {
@@ -432,123 +340,20 @@
                     priceEl.style.opacity = 1;
                 }, 150);
             }
+
+            // --- ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ КНОПОК ПЕРЕХОДА ---
+            // Для Telegram: передаем параметры тарифа в команду запуска /start
+            const tgDeepLink = `https://t.me/${BOT_USERNAME}?start=buy_${currentDev}_${currentMo}`;
+            
+            // Для ВК: просто перенаправляем в диалог
+            const vkDeepLink = `https://vk.me/${VK_SHORT_NAME}`;
+
+            document.getElementById('tg-buy-link').href = tgDeepLink;
+            document.getElementById('vk-buy-link').href = vkDeepLink;
         }
 
         function setDev(val) { currentDev = val; updateUI(); }
         function setMo(val) { currentMo = val; updateUI(); }
-        function setMethod(val) { currentMethod = val; updateUI(); }
-
-        // Логика покупки
-        async function handleBuy() {
-            const btn = document.getElementById('buy-btn');
-            
-            // Если не залогинен - перекидываем в бота
-            if (!tgUser) {
-                window.location.href = `https://t.me/${BOT_USERNAME}?start=buy_${currentDev}_${currentMo}`;
-                return;
-            }
-
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = `<div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block shrink-0"></div> <span class="ml-2">Загрузка...</span>`;
-            btn.disabled = true;
-
-            try {
-                const res = await fetch(`${API_BASE_URL}/api/pay`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        auth: tgUser,
-                        devices: currentDev,
-                        months: currentMo,
-                        method: currentMethod
-                    })
-                });
-
-                const data = await res.json();
-                
-                if (data.paymentUrl) {
-                    window.location.href = data.paymentUrl; // Редирект на LAVA
-                } else {
-                    alert('Ошибка создания счета: ' + (data.error || 'Неизвестно'));
-                    btn.innerHTML = originalContent;
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Ошибка соединения с сервером.');
-                btn.innerHTML = originalContent;
-            }
-            btn.disabled = false;
-        }
-
-        // Модалка Личного кабинета
-        function toggleProfile() {
-            const modal = document.getElementById('profile-modal');
-            const content = document.getElementById('profile-content');
-            
-            if (modal.classList.contains('pointer-events-none')) {
-                // Открываем
-                modal.classList.remove('pointer-events-none', 'opacity-0');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-                loadProfileData();
-            } else {
-                // Закрываем
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                content.classList.remove('scale-100');
-                content.classList.add('scale-95');
-            }
-        }
-
-        // Загрузка данных профиля через API
-        async function loadProfileData() {
-            if (!tgUser) return;
-            
-            document.getElementById('profile-loader').classList.remove('hidden');
-            document.getElementById('profile-data').classList.add('hidden');
-            document.getElementById('profile-empty').classList.add('hidden');
-            document.getElementById('sub-status-text').innerText = "Синхронизация с ботом...";
-
-            try {
-                const res = await fetch(`${API_BASE_URL}/api/profile`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(tgUser)
-                });
-                const data = await res.json();
-
-                document.getElementById('profile-loader').classList.add('hidden');
-
-                if (data.status === 'no_sub') {
-                    document.getElementById('sub-status-text').innerText = "У тебя пока нет подписки";
-                    document.getElementById('profile-empty').classList.remove('hidden');
-                } else {
-                    document.getElementById('sub-status-text').innerText = "Данные успешно загружены";
-                    document.getElementById('profile-data').classList.remove('hidden');
-                    
-                    const statusEl = document.getElementById('sub-status');
-                    if(data.status === 'active') {
-                        statusEl.innerText = "Активен"; statusEl.className = "font-bold text-green-400";
-                    } else {
-                        statusEl.innerText = "Истек"; statusEl.className = "font-bold text-red-400";
-                    }
-                    
-                    document.getElementById('sub-expiry').innerText = data.expiry;
-                    document.getElementById('sub-devices').innerText = data.devices;
-                    document.getElementById('sub-link').value = data.link;
-                }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('profile-loader').classList.add('hidden');
-                document.getElementById('sub-status-text').innerText = "Ошибка загрузки данных.";
-            }
-        }
-
-        function copyLink() {
-            const linkInput = document.getElementById('sub-link');
-            linkInput.select();
-            document.execCommand('copy');
-            alert('Ссылка скопирована!');
-        }
 
         document.getElementById('price-display').style.transition = "opacity 0.15s ease";
     </script>
