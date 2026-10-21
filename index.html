@@ -1,403 +1,262 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Compact VPN — Быстрый и безопасный VPN</title>
-    
-    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compact VPN — быстрый VPN в Telegram и ВКонтакте</title>
+    <meta name="description" content="VPN на протоколе VLESS Reality. Подключение и оплата в Telegram-боте, от 150 ₽ в месяц.">
+    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#12120f" media="(prefers-color-scheme: dark)">
+
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: '#050505',
-                        primary: '#3b82f6',
-                        accent: '#8b5cf6'
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .glass-active {
-            background: rgba(59, 130, 246, 0.15);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .tg-btn {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            transition: all 0.3s ease;
-        }
-        .tg-btn:hover {
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .vk-btn {
-            background: linear-gradient(135deg, #0077ff, #0055cc);
-            transition: all 0.3s ease;
-        }
-        .vk-btn:hover {
-            box-shadow: 0 0 30px rgba(0, 119, 255, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        .tab-btn {
-            transition: all 0.2s ease;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
-<body class="antialiased selection:bg-primary selection:text-white">
+<body>
 
-    <!-- Фоновые неоновые блики -->
-    <div class="fixed top-[0%] left-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-blue-600/30 sm:bg-blue-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1] animate-pulse-slow"></div>
-    <div class="fixed bottom-[-5%] right-[-10%] w-[300px] h-[300px] sm:w-[50vw] sm:h-[50vw] bg-purple-600/30 sm:bg-purple-600/15 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-[-1]"></div>
-
-    <!-- Навигационная панель -->
-    <div class="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
-        <nav class="glass w-full max-w-4xl rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
-            <div class="flex items-center gap-2 shrink-0">
-                <lottie-player 
-                    src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
-                    background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay>
-                </lottie-player>
-                <span class="font-bold text-base sm:text-lg tracking-wide whitespace-nowrap">Compact VPN</span>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <a href="#prices" class="text-sm text-gray-400 hover:text-white transition">Тарифы</a>
-                <a href="#servers" class="text-sm text-gray-400 hover:text-white transition hidden sm:inline">Статус сети</a>
-                <a href="https://t.me/compact_vpn_support" class="text-sm text-gray-400 hover:text-white transition">Поддержка</a>
-            </div>
-        </nav>
-    </div>
-
-    <!-- Главный экран -->
-    <section class="relative pt-32 sm:pt-44 pb-12 px-4 sm:px-6 max-w-4xl mx-auto text-center z-10">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs sm:text-sm text-blue-200 mb-8 animate-float">
-            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse border border-green-200"></span>
-            <span id="active-users-badge">Загрузка пользователей...</span>
+    <header class="top">
+        <div class="wrap">
+            <a href="index.html" class="brand"><img src="favicon.png" alt="">Compact VPN</a>
+            <nav class="nav">
+                <a href="#prices">Тарифы</a>
+                <a href="#servers" class="hide-sm">Серверы</a>
+                <a href="https://t.me/compact_vpn_support">Поддержка</a>
+            </nav>
         </div>
-        
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-            Твой быстрый интернет, <br />
-            <span class="text-gradient">всегда под рукой.</span>
-        </h1>
-        
-        <p class="text-sm sm:text-base text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
-            Обходи ограничения, смотри видео в 4K и используй любимые соцсети без замедлений. Всё управление и оплата подписки — прямо в удобных чат-ботах.
-        </p>
+    </header>
 
-        <!-- Кнопки действия (Основные ссылки на ботов) -->
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto">
-            <a href="https://t.me/compact_vpn_bot" target="_blank" class="tg-btn w-full sm:w-1/2 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-3 text-white shadow-lg">
-                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                Запустить в Telegram
-            </a>
-            
-            <a href="https://vk.com/compact_vpn" target="_blank" class="vk-btn w-full sm:w-1/2 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-3 text-white shadow-lg">
-                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M15.03 2H8.97C3.46 2 2 3.46 2 8.97v6.06C2 20.54 3.46 22 8.97 22h6.06c5.51 0 6.97-1.46 6.97-6.97V8.97C22 3.46 20.54 2 15.03 2zm3.34 11.83c-.09.18-.28.29-.48.29h-1.51c-.48 0-.81-.31-1.33-.84-.46-.46-.77-.59-.97-.59-.28 0-.36.08-.36.38v.67c0 .48-.32.8-.81.8-.75 0-2.31-.22-3.46-1.86-1.65-2.35-2.29-4.14-2.29-4.62 0-.3.12-.58.48-.58h1.51c.33 0 .54.14.65.43.6 1.49 1.46 2.65 1.83 2.65.14 0 .22-.06.22-.36V9.06c0-.62-.18-.89-.73-.89-.28 0-.36-.05-.24-.23.27-.4.86-.65 1.51-.65.81 0 1.09.28 1.09.89v1.94c0 .24.08.31.18.31.14 0 .26-.07.49-.3 1.01-1.31 1.43-2.67 1.43-3.08 0-.3.14-.52.5-.52h1.51c.38 0 .54.16.43.51-.31 1.15-1.55 2.87-1.55 2.87-.24.32-.28.45 0 .78.19.23.83.81 1.25 1.34.79.97 1.16 1.57 1.22 1.87.09.43-.16.63-.51.63z"/></svg>
-                Запустить в ВК
-            </a>
-        </div>
-    </section>
-
-    <!-- Раздел Тарифов и Цен -->
-    <section id="prices" class="py-12 relative z-10 max-w-5xl mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold mb-3">Простые и честные тарифы</h2>
-            <p class="text-gray-400 text-sm">Выберите подходящий вариант. Оплата и подключение происходят в чат-боте.</p>
-            
-            <!-- Переключатель периодов -->
-            <div class="inline-flex p-1.5 bg-white/5 rounded-2xl border border-white/10 mt-8">
-                <button onclick="changePeriod(1)" id="tab-1" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-blue-500 text-white shadow-md">1 месяц</button>
-                <button onclick="changePeriod(3)" id="tab-3" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-gray-400 hover:text-white">3 месяца</button>
-                <button onclick="changePeriod(6)" id="tab-6" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-gray-400 hover:text-white">6 месяцев</button>
-                <button onclick="changePeriod(12)" id="tab-12" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-gray-400 hover:text-white">12 месяцев</button>
-            </div>
-        </div>
-
-        <!-- Сетка тарифов -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- 1 Устройство -->
-            <div class="glass p-8 rounded-[2rem] border border-white/5 relative flex flex-col justify-between">
-                <div>
-                    <div class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-2">Индивидуальный</div>
-                    <h3 class="text-2xl font-bold mb-4">1 Устройство</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6">Отличный выбор для одного телефона или компьютера. Быстрый и защищенный доступ.</p>
+    <main>
+        <section class="wrap hero">
+            <div>
+                <h1>VPN, который <em>просто работает</em></h1>
+                <p class="lead">YouTube в 4K, соцсети и любые сайты без замедлений. Подключение, оплата и инструкции — в чат-боте, без регистрации на сайтах.</p>
+                <div class="actions">
+                    <a href="https://t.me/compact_vpn_bot" target="_blank" rel="noopener" class="btn btn-primary">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        Открыть в Telegram
+                    </a>
+                    <a href="https://vk.com/compact_vpn" target="_blank" rel="noopener" class="btn btn-ghost">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.03 2H8.97C3.46 2 2 3.46 2 8.97v6.06C2 20.54 3.46 22 8.97 22h6.06c5.51 0 6.97-1.46 6.97-6.97V8.97C22 3.46 20.54 2 15.03 2zm3.34 11.83c-.09.18-.28.29-.48.29h-1.51c-.48 0-.81-.31-1.33-.84-.46-.46-.77-.59-.97-.59-.28 0-.36.08-.36.38v.67c0 .48-.32.8-.81.8-.75 0-2.31-.22-3.46-1.86-1.65-2.35-2.29-4.14-2.29-4.62 0-.3.12-.58.48-.58h1.51c.33 0 .54.14.65.43.6 1.49 1.46 2.65 1.83 2.65.14 0 .22-.06.22-.36V9.06c0-.62-.18-.89-.73-.89-.28 0-.36-.05-.24-.23.27-.4.86-.65 1.51-.65.81 0 1.09.28 1.09.89v1.94c0 .24.08.31.18.31.14 0 .26-.07.49-.3 1.01-1.31 1.43-2.67 1.43-3.08 0-.3.14-.52.5-.52h1.51c.38 0 .54.16.43.51-.31 1.15-1.55 2.87-1.55 2.87-.24.32-.28.45 0 .78.19.23.83.81 1.25 1.34.79.97 1.16 1.57 1.22 1.87.09.43-.16.63-.51.63z"/></svg>
+                        ВКонтакте
+                    </a>
                 </div>
-                <div>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span id="price-dev1" class="text-5xl font-extrabold text-white">150</span>
-                        <span class="text-xl text-blue-400 font-bold">₽</span>
-                        <span id="period-text-dev1" class="text-gray-400 text-xs ml-2">/ за месяц</span>
+                <div class="meta">
+                    <span>от <b>150 ₽</b> в месяц</span>
+                    <span>протокол <b>VLESS Reality</b></span>
+                    <span id="users-meta" hidden></span>
+                </div>
+            </div>
+
+            <div>
+                <p class="steps-title">Как подключиться</p>
+                <ol class="steps">
+                    <li><span class="n">01</span><div><h3>Откройте бота</h3><p>В Telegram или ВКонтакте — как удобнее.</p></div></li>
+                    <li><span class="n">02</span><div><h3>Выберите тариф</h3><p>Оплата картой или звёздами Telegram прямо в чате.</p></div></li>
+                    <li><span class="n">03</span><div><h3>Добавьте ссылку в приложение</h3><p>Бот пришлёт ссылку и инструкцию для вашего устройства.</p></div></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="prices" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <h2>Тарифы</h2>
+                        <p>Без ограничений по скорости и трафику. Оплата и подключение — в боте.</p>
                     </div>
-                    <a href="https://t.me/compact_vpn_bot" class="block w-full text-center py-3 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold rounded-xl transition text-sm">Подключить в боте</a>
-                </div>
-            </div>
-
-            <!-- 3 Устройства -->
-            <div class="glass p-8 rounded-[2rem] border-2 border-blue-500/30 relative flex flex-col justify-between shadow-[0_0_30px_rgba(59,130,246,0.1)]">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-blue-400">Популярный</div>
-                <div>
-                    <div class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-2 mt-2">Семейный</div>
-                    <h3 class="text-2xl font-bold mb-4">3 Устройства</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6">Оптимально для использования всей семьей или для всех личных гаджетов (телефон, ПК, планшет).</p>
-                </div>
-                <div>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span id="price-dev3" class="text-5xl font-extrabold text-white">250</span>
-                        <span class="text-xl text-blue-400 font-bold">₽</span>
-                        <span id="period-text-dev3" class="text-gray-400 text-xs ml-2">/ за месяц</span>
+                    <div class="seg" role="group" aria-label="Период оплаты">
+                        <button type="button" data-months="1" aria-pressed="true">1 мес</button>
+                        <button type="button" data-months="3" aria-pressed="false">3 мес</button>
+                        <button type="button" data-months="6" aria-pressed="false">6 мес</button>
+                        <button type="button" data-months="12" aria-pressed="false">12 мес</button>
                     </div>
-                    <a href="https://t.me/compact_vpn_bot" class="block w-full text-center py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition text-sm">Подключить в боте</a>
+                </div>
+
+                <div class="plans">
+                    <article class="plan">
+                        <div class="tag">Для себя</div>
+                        <h3>1 устройство</h3>
+                        <p class="desc">Телефон или компьютер — один быстрый и защищённый доступ.</p>
+                        <div class="price"><span class="num" data-plan="dev1">150</span><span class="cur">₽</span></div>
+                        <div class="price-sub" data-sub="dev1"></div>
+                        <a href="https://t.me/compact_vpn_bot" class="btn btn-ghost btn-block">Подключить</a>
+                    </article>
+                    <article class="plan featured">
+                        <div class="tag">Для семьи <span class="pill">Берут чаще всего</span></div>
+                        <h3>3 устройства</h3>
+                        <p class="desc">Телефон, ноутбук и планшет — или три человека в семье.</p>
+                        <div class="price"><span class="num" data-plan="dev3">250</span><span class="cur">₽</span></div>
+                        <div class="price-sub" data-sub="dev3"></div>
+                        <a href="https://t.me/compact_vpn_bot" class="btn btn-primary btn-block">Подключить</a>
+                    </article>
+                    <article class="plan">
+                        <div class="tag">Без ограничений</div>
+                        <h3>Безлимит</h3>
+                        <p class="desc">Сколько угодно устройств, включая роутер. Можно делиться с близкими.</p>
+                        <div class="price"><span class="num" data-plan="unlim">400</span><span class="cur">₽</span></div>
+                        <div class="price-sub" data-sub="unlim"></div>
+                        <a href="https://t.me/compact_vpn_bot" class="btn btn-ghost btn-block">Подключить</a>
+                    </article>
                 </div>
             </div>
+        </section>
 
-            <!-- Безлимит устройств -->
-            <div class="glass p-8 rounded-[2rem] border border-white/5 relative flex flex-col justify-between">
-                <div>
-                    <div class="text-xs text-purple-400 font-bold uppercase tracking-wider mb-2">Максимум</div>
-                    <h3 class="text-2xl font-bold mb-4">Безлимит</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6">Полный безлимит устройств. Подключайте роутер, делитесь с друзьями и близкими без ограничений.</p>
-                </div>
-                <div>
-                    <div class="flex items-baseline gap-1 mb-6">
-                        <span id="price-unlim" class="text-5xl font-extrabold text-white">400</span>
-                        <span class="text-xl text-blue-400 font-bold">₽</span>
-                        <span id="period-text-unlim" class="text-gray-400 text-xs ml-2">/ за месяц</span>
+        <section id="servers" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <h2>Серверы</h2>
+                        <p>Состояние сети в реальном времени.</p>
                     </div>
-                    <a href="https://t.me/compact_vpn_bot" class="block w-full text-center py-3 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-semibold rounded-xl transition text-sm">Подключить в боте</a>
+                </div>
+                <div class="status">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Сервер</th>
+                                <th>Статус</th>
+                                <th class="hide-sm">Процессор</th>
+                                <th class="hide-sm">Память</th>
+                                <th class="r">Подключения</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servers-body">
+                            <tr><td colspan="5" class="status-note">Загружаем статус…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="status-foot" id="status-foot">Обновляется каждую минуту.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap features">
+                <div>
+                    <h3>Скорость без лимитов</h3>
+                    <p>Не режем скорость и не считаем трафик. Видео в 4K и большие загрузки — без проблем.</p>
+                </div>
+                <div>
+                    <h3>Все устройства</h3>
+                    <p>iOS, Android, Windows, macOS и роутеры. Инструкция для каждой платформы — в боте.</p>
+                </div>
+                <div>
+                    <h3>Устойчив к блокировкам</h3>
+                    <p>VLESS Reality выглядит как обычный защищённый трафик к популярным сайтам.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Раздел Мониторинга серверов -->
-    <section id="servers" class="py-12 relative z-10 max-w-4xl mx-auto px-4">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl sm:text-3xl font-bold mb-3">Состояние VPN-серверов</h2>
-            <p class="text-gray-400 text-xs sm:text-sm">Автоматическое обновление статуса сети каждые 60 секунд.</p>
-        </div>
-
-        <!-- Контейнер для динамического списка серверов -->
-        <div id="servers-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Прелоадер на время загрузки -->
-            <div class="glass p-6 rounded-3xl col-span-1 sm:col-span-2 flex justify-center py-12">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+    <footer class="foot">
+        <div class="wrap">
+            <div>
+                <div>© 2026 Compact VPN</div>
+                <nav style="margin-top:8px">
+                    <a href="https://t.me/compact_vpn_support">Поддержка</a>
+                    <a href="https://vk.com/compact_vpn">ВКонтакте</a>
+                </nav>
             </div>
-        </div>
-    </section>
-
-    <!-- Преимущества -->
-    <section class="py-10 relative z-10">
-        <div class="max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/20 flex items-center justify-center text-xl mb-4">⚡</div>
-                <h3 class="text-lg font-bold mb-2">Высокая скорость</h3>
-                <p class="text-gray-400 text-xs sm:text-sm">Без ограничений по трафику и скорости. Отлично подходит для потокового видео и загрузки больших файлов.</p>
-            </div>
-            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-transparent border border-purple-500/20 flex items-center justify-center text-xl mb-4">📱</div>
-                <h3 class="text-lg font-bold mb-2">Любые платформы</h3>
-                <p class="text-gray-400 text-xs sm:text-sm">Полная поддержка iOS, Android, Windows и macOS. Инструкции по настройке вы найдете прямо в боте.</p>
-            </div>
-            <div class="glass p-6 rounded-2xl hover:bg-white/5 transition duration-500">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 flex items-center justify-center text-xl mb-4">🛡️</div>
-                <h3 class="text-lg font-bold mb-2">Маскировка VLESS</h3>
-                <p class="text-gray-400 text-xs sm:text-sm">Прогрессивные протоколы обхода блокировок Reality маскируют VPN-трафик под стандартный серфинг.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Подвал -->
-    <footer class="mt-10 pb-10 pt-6 border-t border-white/5 relative z-10">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <lottie-player 
-                src="https://raw.githubusercontent.com/Vasiliy-katsyka/compactvpn/refs/heads/main/CherryEmoji_AgADPxkAAiX9qUo.json" 
-                background="transparent" speed="0.5" style="width: 24px; height: 24px; margin: 0 auto 10px;" loop autoplay>
-            </lottie-player>
-            <p class="text-gray-500 text-xs mb-4">© 2026 Compact VPN. Все права защищены.</p>
-            
-            <div class="flex justify-center gap-6 mb-4">
-                <a href="https://t.me/compact_vpn_support" class="text-gray-400 hover:text-white transition text-xs">Служба поддержки</a>
-                <a href="https://vk.com/compact_vpn" class="text-gray-400 hover:text-white transition text-xs">Сообщество ВКонтакте</a>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                <a href="terms.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Пользовательское соглашение</a>
-                <a href="privacy.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Политика конфиденциальности</a>
-                <a href="refund.html" class="text-gray-500 hover:text-gray-300 transition text-[11px]">Политика возвратов</a>
-            </div>
+            <nav>
+                <a href="terms.html">Пользовательское соглашение</a>
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <a href="refund.html">Политика возвратов</a>
+            </nav>
         </div>
     </footer>
 
-    <!-- Логика получения данных из API и управление ценами -->
     <script>
         const API_BASE_URL = "https://api.compactvpn.fun:8443";
 
-        // Статические цены для динамического отображения
         const pricingData = {
-            1: { dev1: 150, dev3: 250, unlim: 400, text: "/ за месяц" },
-            3: { dev1: 405, dev3: 675, unlim: 1000, text: "/ за 3 месяца" },
-            6: { dev1: 765, dev3: 1275, unlim: 1500, text: "/ за 6 месяцев" },
-            12: { dev1: 1440, dev3: 2400, unlim: 3500, text: "/ за 12 месяцев" }
+            1: { dev1: 150, dev3: 250, unlim: 400 },
+            3: { dev1: 405, dev3: 675, unlim: 1000 },
+            6: { dev1: 765, dev3: 1275, unlim: 1500 },
+            12: { dev1: 1440, dev3: 2400, unlim: 3500 }
         };
+        const periodText = { 1: "в месяц", 3: "за 3 месяца", 6: "за 6 месяцев", 12: "за 12 месяцев" };
 
-        function changePeriod(months) {
-            // Переключаем активный класс на кнопках табов
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-500', 'text-white', 'shadow-md');
-                btn.classList.add('text-gray-400', 'hover:text-white');
+        function changePeriod(months, animate = true) {
+            document.querySelectorAll('.seg button').forEach(b => {
+                b.setAttribute('aria-pressed', String(Number(b.dataset.months) === months));
             });
-            
-            const activeTab = document.getElementById(`tab-${months}`);
-            activeTab.classList.remove('text-gray-400', 'hover:text-white');
-            activeTab.classList.add('bg-blue-500', 'text-white', 'shadow-md');
-
-            // Анимированно меняем значения цен
-            updatePriceWithAnimation('price-dev1', pricingData[months].dev1);
-            updatePriceWithAnimation('price-dev3', pricingData[months].dev3);
-            updatePriceWithAnimation('price-unlim', pricingData[months].unlim);
-
-            // Меняем подписи к периоду
-            document.getElementById('period-text-dev1').innerText = pricingData[months].text;
-            document.getElementById('period-text-dev3').innerText = pricingData[months].text;
-            document.getElementById('period-text-unlim').innerText = pricingData[months].text;
-        }
-
-        function updatePriceWithAnimation(elementId, newValue) {
-            const el = document.getElementById(elementId);
-            el.style.transition = "opacity 0.15s ease";
-            el.style.opacity = 0;
-            setTimeout(() => {
-                el.innerText = newValue;
-                el.style.opacity = 1;
-            }, 150);
-        }
-
-        // Статические данные для серверов (на случай, если API не вернет ответ)
-        const placeholderServers = [
-            { name: "🇫🇮 Финляндия", status: "online", cpu: 8, mem: 14, connections: 42 },
-            { name: "🇳🇱 Нидерланды", status: "online", cpu: 12, mem: 21, connections: 38 },
-            { name: "🇨🇦 Канада", status: "online", cpu: 5, mem: 11, connections: 14 },
-            { name: "🇩🇪 Германия", status: "online", cpu: 15, mem: 28, connections: 51 },
-            { name: "🇺🇸 США", status: "online", cpu: 7, mem: 16, connections: 25 },
-            { name: "🇸🇬 Сингапур", status: "online", cpu: 9, mem: 19, connections: 19 }
-        ];
-
-        async function fetchStats() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/public/servers`, { timeout: 8000 });
-                if (!response.ok) throw new Error("API error");
-                
-                const data = await response.json();
-                
-                if (data.totalUsers) {
-                    document.getElementById('active-users-badge').innerText = `С нами уже более ${data.totalUsers} пользователей`;
+            for (const plan of ['dev1', 'dev3', 'unlim']) {
+                const total = pricingData[months][plan];
+                const el = document.querySelector(`[data-plan="${plan}"]`);
+                if (animate) {
+                    el.style.opacity = 0;
+                    setTimeout(() => { el.textContent = total; el.style.opacity = 1; }, 150);
+                } else {
+                    el.textContent = total;
                 }
-                
-                renderServers(data.servers);
-            } catch (err) {
-                console.warn("Не удалось получить статистику из API, используем стандартные показатели:", err);
-                document.getElementById('active-users-badge').innerText = `С нами уже более 1240 пользователей`;
-                renderServers(placeholderServers);
+
+                const sub = document.querySelector(`[data-sub="${plan}"]`);
+                if (months === 1) {
+                    sub.textContent = periodText[1];
+                } else {
+                    const perMonth = Math.round(total / months);
+                    const save = Math.round((1 - total / (pricingData[1][plan] * months)) * 100);
+                    sub.innerHTML = `${periodText[months]} · ${perMonth} ₽/мес` + (save > 0 ? ` · <span class="save">−${save}%</span>` : '');
+                }
             }
+        }
+        document.querySelectorAll('.seg button').forEach(b => {
+            b.addEventListener('click', () => changePeriod(Number(b.dataset.months)));
+        });
+        changePeriod(1, false);
+
+        function esc(s) {
+            return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function bar(value) {
+            const v = Math.max(0, Math.min(100, Number(value) || 0));
+            return `<div class="bar"><div class="track"><div class="fill" style="width:${v}%"></div></div><span class="num">${v}%</span></div>`;
         }
 
         function renderServers(servers) {
-            const container = document.getElementById('servers-container');
-            container.innerHTML = ""; 
+            const body = document.getElementById('servers-body');
+            body.innerHTML = servers.map(srv => {
+                const on = srv.status === 'online';
+                return `<tr class="${on ? '' : 'row-off'}">
+                    <td class="srv-name">${esc(srv.name)}</td>
+                    <td><span class="state ${on ? '' : 'off'}"><span class="dot"></span>${on ? 'Работает' : 'Недоступен'}</span></td>
+                    <td class="hide-sm">${bar(srv.cpu)}</td>
+                    <td class="hide-sm">${bar(srv.mem)}</td>
+                    <td class="r num">${Number(srv.connections) || 0}</td>
+                </tr>`;
+            }).join('');
+        }
 
-            if (!servers || servers.length === 0) {
-                servers = placeholderServers;
+        async function fetchStats() {
+            const foot = document.getElementById('status-foot');
+            try {
+                const ctrl = new AbortController();
+                const t = setTimeout(() => ctrl.abort(), 8000);
+                const response = await fetch(`${API_BASE_URL}/api/public/servers`, { signal: ctrl.signal });
+                clearTimeout(t);
+                if (!response.ok) throw new Error("API error");
+                const data = await response.json();
+
+                if (data.totalUsers) {
+                    const meta = document.getElementById('users-meta');
+                    meta.innerHTML = `<b>${Number(data.totalUsers)}</b> пользователей`;
+                    meta.hidden = false;
+                }
+                if (data.servers && data.servers.length) {
+                    renderServers(data.servers);
+                    const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                    foot.textContent = `Обновлено в ${time}. Обновляется каждую минуту.`;
+                }
+            } catch (err) {
+                if (!document.querySelector('#servers-body .srv-name')) {
+                    document.getElementById('servers-body').innerHTML =
+                        '<tr><td colspan="5" class="status-note">Не удалось получить статус. Попробуем ещё раз через минуту.</td></tr>';
+                }
             }
-
-            servers.forEach(srv => {
-                const isOnline = srv.status === 'online';
-                const statusDot = isOnline 
-                    ? '<span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>' 
-                    : '<span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>';
-                
-                const statusText = isOnline ? 'Онлайн' : 'Офлайн';
-                const statusClass = isOnline ? 'text-green-400' : 'text-red-500';
-
-                const cardHtml = `
-                    <div class="glass p-5 rounded-[2rem] border border-white/5 relative overflow-hidden transition hover:bg-white/5">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="font-bold text-base sm:text-lg">${srv.name}</span>
-                            <div class="flex items-center gap-1.5 text-xs font-semibold ${statusClass}">
-                                ${statusDot}
-                                ${statusText}
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-3 ${isOnline ? '' : 'opacity-30'}">
-                            <div>
-                                <div class="flex justify-between text-[11px] text-gray-400 mb-1">
-                                    <span>Нагрузка процессора</span>
-                                    <span>${srv.cpu}%</span>
-                                </div>
-                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: ${srv.cpu}%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between text-[11px] text-gray-400 mb-1">
-                                    <span>Использование памяти</span>
-                                    <span>${srv.mem}%</span>
-                                </div>
-                                <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-purple-500 h-full rounded-full transition-all duration-1000" style="width: ${srv.mem}%"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center text-xs text-gray-400 pt-1">
-                                <span>Активные подключения:</span>
-                                <span class="font-bold text-white">${srv.connections} сессий</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHtml;
-            });
         }
 
         fetchStats();
