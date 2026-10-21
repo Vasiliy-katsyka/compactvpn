@@ -165,3 +165,27 @@ body::after {
 .doc + .back, main > .back { margin-bottom: 0; }
 .doc .back { margin: 0 0 24px; }
 .brand img { width: 26px; height: 26px; border-radius: 7px; }
+
+/* Компактные карточки на телефоне */
+@media (max-width: 640px) {
+  .card { backdrop-filter: none; -webkit-backdrop-filter: none; background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01)), rgba(20, 17, 23, 0.9); border-radius: 18px; }
+  .plans { gap: 14px; }
+  .plan { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t p" "d p" "b b"; column-gap: 16px; padding: 20px; }
+  .plan h3 { grid-area: t; font-size: 18px; margin: 0 0 2px; }
+  .plan .desc { grid-area: d; margin: 0 0 16px; font-size: 13px; }
+  .plan .price { grid-area: p; align-self: start; flex-wrap: wrap; justify-content: flex-end; margin: 0; max-width: 120px; }
+  .plan .price .num { font-size: 32px; }
+  .plan .price .cur { font-size: 17px; }
+  .plan .price .per { width: 100%; text-align: right; margin: 4px 0 0; font-size: 12px; }
+  .plan .btn { grid-area: b; height: 46px; }
+  .plan .flag { left: 20px; }
+  .plans .plan.featured { margin-top: 6px; }
+
+  .srv { padding: 16px; }
+  .srv-head { margin-bottom: 12px; }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end; }
+  .metric { margin: 0; }
+  .metric-top { font-size: 12px; margin-bottom: 5px; }
+  .conn { flex-direction: column; align-items: flex-end; gap: 1px; padding: 0; font-size: 12px; }
+  .feature { padding: 20px; }
+}
