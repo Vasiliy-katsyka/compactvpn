@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini — статус серверов Compact VPN</title>
+    <meta name="description" content="Работает ли Google Gemini через каждый сервер Compact VPN. Проверка каждые 10 минут.">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css?v=12">
+    <style>
+        .gm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+        .gm-head h1 { margin: 0 0 6px; }
+        .gm-head p { margin: 0; color: var(--muted); }
+        .gm-summary { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-weight: 600; font-size: 15px; white-space: nowrap; }
+        .gm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+        .gm-row { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+        .gm-name { font-weight: 600; font-size: 17px; flex: 1; min-width: 0; }
+        .gm-note { color: var(--muted); font-size: 14px; text-align: right; }
+        .gm-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--muted); }
+        .gm-ok .gm-dot { background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 18%, transparent); }
+        .gm-bad .gm-dot { background: var(--bad); box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 18%, transparent); }
+        .gm-state { font-weight: 600; font-size: 15px; min-width: 96px; text-align: right; }
+        .gm-ok .gm-state { color: var(--ok); }
+        .gm-bad .gm-state { color: var(--bad); }
+        .gm-foot { margin-top: 18px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+        .gm-skel { height: 58px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); opacity: .6; }
+        @media (max-width: 520px) {
+            .gm-row { flex-wrap: wrap; gap: 6px 12px; }
+            .gm-name { flex-basis: calc(100% - 140px); }
+            .gm-note { order: 3; flex-basis: 100%; text-align: left; padding-left: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+        <div class="wrap">
+            <a href="../index.html" class="brand"><img src="../favicon.png" alt="">Compact VPN</a>
+            <nav class="nav">
+                <a href="../index.html#prices">Тарифы</a>
+                <a href="https://t.me/compact_vpn_support">Поддержка</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+    <article class="card doc">
+        <a href="../index.html" class="back">← На главную</a>
+        <div class="gm-head">
+            <div>
+                <h1>Работает ли Gemini</h1>
+                <p>Проверяем Google Gemini через каждый сервер так же, как подключается ваше устройство.</p>
+            </div>
+            <span class="gm-summary" id="summary">Проверяем…</span>
+        </div>
+
+        <ul class="gm-list" id="list">
+            <li class="gm-skel"></li><li class="gm-skel"></li><li class="gm-skel"></li>
+        </ul>
+
+        <p class="gm-foot" id="foot">Проверка каждые 10 минут.</p>
+    </article>
+    </main>
+
+    <script>
+        const REASONS = {
+            blocked: 'Google считает сервер российским',
+            down: 'Gemini не открывается',
+            error: 'Сервер не отвечает на проверку'
+        };
+
+        function ago(ts) {
+            const m = Math.max(0, Math.round((Date.now() / 1000 - ts) / 60));
+            if (m < 1) return 'только что';
+            if (m < 60) return m + ' мин назад';
+            const h = Math.round(m / 60);
+            return h + ' ч назад';
+        }
+
+        function row(s) {
+            const ok = s.status === 'ok';
+            const li = document.createElement('li');
+            li.className = 'gm-row ' + (ok ? 'gm-ok' : 'gm-bad');
+            const note = ok ? (s.latency_ms ? 'открывается за ' + (s.latency_ms / 1000).toFixed(1) + ' с' : '')
+                            : (REASONS[s.status] || '');
+            li.innerHTML = '<span class="gm-dot"></span><span class="gm-name"></span>' +
+                           '<span class="gm-note"></span><span class="gm-state"></span>';
+            li.querySelector('.gm-name').textContent = s.name;
+            li.querySelector('.gm-note').textContent = note;
+            li.querySelector('.gm-state').textContent = ok ? 'Работает' : 'Не работает';
+            return li;
+        }
+
+        async function load() {
+            try {
+                const r = await fetch('status.json?t=' + Date.now(), { cache: 'no-store' });
+                const d = await r.json();
+                const list = document.getElementById('list');
+                list.replaceChildren(...d.servers.map(row));
+                const okN = d.servers.filter(s => s.status === 'ok').length;
+                document.getElementById('summary').textContent =
+                    okN === d.servers.length ? 'Работает везде' : okN + ' из ' + d.servers.length + ' серверов';
+                const stale = Date.now() / 1000 - d.checked_at > 30 * 60;
+                document.getElementById('foot').textContent =
+                    'Последняя проверка: ' + ago(d.checked_at) + (stale ? ' — данные могут быть устаревшими.' : '. Проверка каждые 10 минут.');
+            } catch (e) {
+                document.getElementById('summary').textContent = 'Нет данных';
+                document.getElementById('foot').textContent = 'Не удалось загрузить статус. Попробуйте обновить страницу.';
+            }
+        }
+
+        load();
+        setInterval(load, 60000);
+    </script>
+</body>
+</html>
